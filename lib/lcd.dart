@@ -49,7 +49,7 @@ class ScannerLabel extends StatefulWidget {
 }
 
 class _ScannerLabelState extends State<ScannerLabel> {
-  String _label = "Scanner";
+  String _label = "Stillbox";
 
   void setLabel(String s) {
     _label = s;
@@ -66,7 +66,6 @@ class _ScannerLabelState extends State<ScannerLabel> {
             fontSize: 22.0,
             fontWeight: FontWeight.bold,
             fontFamily: "Warnes",
-            letterSpacing: 4.0,
           )),
     );
   }
