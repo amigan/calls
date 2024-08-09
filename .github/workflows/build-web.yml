@@ -34,4 +34,10 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
 #     - run: flutter test
-      - run: flutter build web
+      - run: flutter build web --web-renderer auto
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: webBuild
+          path: build/web/
+          if-no-files-found: error
