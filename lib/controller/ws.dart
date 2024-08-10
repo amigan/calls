@@ -1,6 +1,8 @@
 import 'package:web_socket_channel/web_socket_channel.dart';
+import '../pb/stillbox.pb.dart';
 
 class LiveFeeder {
+  late Uri _wsUri;
   late WebSocketChannel channel;
 
   LiveFeeder();
@@ -12,13 +14,21 @@ class LiveFeeder {
       String port = (baseUri.hasPort ? ':' + baseUri.port.toString() : '');
       socketUrl = 'ws://${baseUri.host}$port/ws';
     }
-    final wsUri = Uri.parse(socketUrl);
+    _wsUri = Uri.parse(socketUrl);
+  }
 
-    channel = WebSocketChannel.connect(wsUri);
+  void connect() {
+    channel = WebSocketChannel.connect(_wsUri);
     channel.stream.listen((event) => _handleData(event));
   }
 
   void _handleData(dynamic event) {
-    print(event);
+    final msg = Message.fromBuffer(event);
+    switch (msg.whichToClientMessage()) {
+      case Message_ToClientMessage.call:
+      case Message_ToClientMessage.notification:
+      case Message_ToClientMessage.popup:
+      case Message_ToClientMessage.error:
+    }
   }
 }
