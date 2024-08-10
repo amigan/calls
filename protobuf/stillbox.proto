@@ -1,0 +1,76 @@
+syntax = "proto3";
+package stillbox;
+option go_package = "./pb";
+
+import "google/protobuf/timestamp.proto";
+
+message Message {
+  oneof toClient_message {
+    Call call = 1;
+    Notification notification = 2;
+    UserPopup popup = 3;
+    Error error = 4;
+  }
+}
+
+message Call {
+  string audioName = 1;
+  string audioType = 2;
+  google.protobuf.Timestamp dateTime = 3;
+  int32 system = 4;
+  int32 talkgroup = 5;
+  int32 source = 6;
+  int64 frequency = 7;
+  repeated int64 frequencies = 8;
+  repeated int32 patches = 9;
+  repeated int32 sources = 10;
+  bytes audio = 11;
+}
+
+message UserPopup {
+  string msg = 1;
+}
+
+message Error {
+  string error = 1;
+}
+
+message Notification {
+  google.protobuf.Timestamp dateTime = 1;
+  string msg = 2;
+  string actionUrl = 3;
+}
+
+message Command {
+  oneof command {
+    Live liveCommand = 1;
+    Search searchCommand = 2;
+  }
+}
+
+enum LiveState {
+  LS_STOPPED = 0;
+  LS_LIVE = 1;
+  LS_PAUSED = 2;
+}
+
+message Live {
+  optional LiveState state = 1;
+  optional Filter filter = 2;
+}
+
+message Talkgroup {
+  int32 system = 1;
+  int32 talkgroup = 2;
+}
+
+message Filter {
+  repeated Talkgroup talkgroups = 1;
+  repeated Talkgroup talkgroups_not = 2;
+  repeated string talkgroup_tags_all = 3;
+  repeated string talkgroup_tags_any = 4;
+  repeated string talkgroup_tags_not = 5;
+}
+
+message Search {
+}
