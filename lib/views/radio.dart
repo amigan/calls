@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'lcd.dart';
-import 'keypad.dart';
+import '../../views/lcd.dart';
+import '../../views/keypad.dart';
 
 class MainRadio extends StatefulWidget {
   const MainRadio({super.key, required this.title});

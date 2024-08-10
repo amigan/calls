@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'views/radio.dart';
+import 'controller/ws.dart';
 
 void main() {
+  LiveFeeder f = LiveFeeder();
+  f.init();
   runApp(const MyApp());
 }
 
