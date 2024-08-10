@@ -29,6 +29,7 @@ class LiveFeeder {
       case Message_ToClientMessage.notification:
       case Message_ToClientMessage.popup:
       case Message_ToClientMessage.error:
+      default:
     }
   }
 }
