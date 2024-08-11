@@ -5,9 +5,7 @@ class LiveFeeder {
   late Uri _wsUri;
   late WebSocketChannel channel;
 
-  LiveFeeder();
-
-  void init() {
+  LiveFeeder() {
     String socketUrl = 'ws://xenon:3050/ws';
     Uri baseUri = Uri.base;
     if (baseUri.scheme == 'http' || baseUri.scheme == 'https') {
