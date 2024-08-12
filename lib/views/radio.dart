@@ -13,7 +13,6 @@ class MainRadio extends StatefulWidget {
 }
 
 class _MainRadioState extends State<MainRadio> {
-  LiveFeeder f = LiveFeeder();
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

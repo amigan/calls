@@ -1,18 +1,23 @@
 import 'package:web_socket_channel/web_socket_channel.dart';
 import '../pb/stillbox.pb.dart';
 
-class LiveFeeder {
+class Client {
   late Uri _wsUri;
   late WebSocketChannel channel;
 
-  LiveFeeder() {
+  Client() {
     String socketUrl = 'ws://xenon:3050/ws';
     Uri baseUri = Uri.base;
     if (baseUri.scheme == 'http' || baseUri.scheme == 'https') {
-      String port = (baseUri.hasPort ? ':${baseUri.port}' : '');
-      socketUrl = 'ws://${baseUri.host}$port/ws';
+      final port = (baseUri.hasPort ? ':${baseUri.port}' : '');
+      socketUrl =
+          '${baseUri.scheme == 'http' ? 'ws' : 'wss'}://${baseUri.host}$port/ws';
     }
     _wsUri = Uri.parse(socketUrl);
+  }
+
+  bool isConnected() {
+    return false;
   }
 
   void connect() {
