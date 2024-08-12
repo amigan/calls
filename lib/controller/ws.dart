@@ -9,7 +9,7 @@ class LiveFeeder {
     String socketUrl = 'ws://xenon:3050/ws';
     Uri baseUri = Uri.base;
     if (baseUri.scheme == 'http' || baseUri.scheme == 'https') {
-      String port = (baseUri.hasPort ? ':' + baseUri.port.toString() : '');
+      String port = (baseUri.hasPort ? ':${baseUri.port}' : '');
       socketUrl = 'ws://${baseUri.host}$port/ws';
     }
     _wsUri = Uri.parse(socketUrl);
