@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../views/lcd.dart';
 import '../../views/keypad.dart';
+import '../controller/ws.dart';
 
 class MainRadio extends StatefulWidget {
   const MainRadio({super.key, required this.title});
@@ -12,6 +13,7 @@ class MainRadio extends StatefulWidget {
 }
 
 class _MainRadioState extends State<MainRadio> {
+  LiveFeeder f = LiveFeeder();
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
