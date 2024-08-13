@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'views/radio.dart';
+import 'package:provider/provider.dart';
 import 'views/login.dart';
 import 'controller/ws.dart';
 
 void main() {
-  runApp(const CallsApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => Client(),
+    child: const CallsApp(),
+  ));
 }
 
 class CallsApp extends StatelessWidget {

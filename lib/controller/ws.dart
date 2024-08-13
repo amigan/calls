@@ -1,9 +1,10 @@
-import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:flutter/material.dart';
+import 'package:web_socket_channel/io.dart';
 import '../pb/stillbox.pb.dart';
 
-class Client {
+class Client extends ChangeNotifier {
   late Uri _wsUri;
-  late WebSocketChannel channel;
+  late IOWebSocketChannel channel;
 
   Client() {
     String socketUrl = 'ws://xenon:3050/ws';
@@ -21,7 +22,7 @@ class Client {
   }
 
   void connect() {
-    channel = WebSocketChannel.connect(_wsUri);
+    channel = IOWebSocketChannel.connect(_wsUri);
     channel.stream.listen((event) => _handleData(event));
   }
 
