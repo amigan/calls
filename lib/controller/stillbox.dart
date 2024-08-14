@@ -66,7 +66,12 @@ class Stillbox extends ChangeNotifier {
       baseUri = Uri.parse(uri);
       setUris();
     }
-    Uri loginUri = Uri.parse('${baseUri!}/login');
+    String baseUriString = baseUri.toString();
+    // trim trailing slash since gordio router really dislikes it
+    if (baseUriString.endsWith('/')) {
+      baseUriString = baseUriString.substring(0, baseUriString.length - 1);
+    }
+    Uri loginUri = Uri.parse('$baseUriString/login');
     final form = <String, dynamic>{};
     form['username'] = username;
     form['password'] = password;
