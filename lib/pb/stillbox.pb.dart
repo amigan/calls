@@ -150,6 +150,7 @@ class Call extends $pb.GeneratedMessage {
     $core.Iterable<$fixnum.Int64>? frequencies,
     $core.Iterable<$core.int>? patches,
     $core.Iterable<$core.int>? sources,
+    $core.int? duration,
     $core.List<$core.int>? audio,
   }) {
     final $result = create();
@@ -183,6 +184,9 @@ class Call extends $pb.GeneratedMessage {
     if (sources != null) {
       $result.sources.addAll(sources);
     }
+    if (duration != null) {
+      $result.duration = duration;
+    }
     if (audio != null) {
       $result.audio = audio;
     }
@@ -203,7 +207,8 @@ class Call extends $pb.GeneratedMessage {
     ..p<$fixnum.Int64>(8, _omitFieldNames ? '' : 'frequencies', $pb.PbFieldType.K6)
     ..p<$core.int>(9, _omitFieldNames ? '' : 'patches', $pb.PbFieldType.K3)
     ..p<$core.int>(10, _omitFieldNames ? '' : 'sources', $pb.PbFieldType.K3)
-    ..a<$core.List<$core.int>>(11, _omitFieldNames ? '' : 'audio', $pb.PbFieldType.OY)
+    ..a<$core.int>(11, _omitFieldNames ? '' : 'duration', $pb.PbFieldType.O3)
+    ..a<$core.List<$core.int>>(12, _omitFieldNames ? '' : 'audio', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
@@ -303,13 +308,22 @@ class Call extends $pb.GeneratedMessage {
   $core.List<$core.int> get sources => $_getList(9);
 
   @$pb.TagNumber(11)
-  $core.List<$core.int> get audio => $_getN(10);
+  $core.int get duration => $_getIZ(10);
   @$pb.TagNumber(11)
-  set audio($core.List<$core.int> v) { $_setBytes(10, v); }
+  set duration($core.int v) { $_setSignedInt32(10, v); }
   @$pb.TagNumber(11)
-  $core.bool hasAudio() => $_has(10);
+  $core.bool hasDuration() => $_has(10);
   @$pb.TagNumber(11)
-  void clearAudio() => clearField(11);
+  void clearDuration() => clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.List<$core.int> get audio => $_getN(11);
+  @$pb.TagNumber(12)
+  set audio($core.List<$core.int> v) { $_setBytes(11, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasAudio() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearAudio() => clearField(12);
 }
 
 class UserPopup extends $pb.GeneratedMessage {
