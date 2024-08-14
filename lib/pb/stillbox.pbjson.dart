@@ -63,7 +63,11 @@ const Call$json = {
     {'1': 'frequencies', '3': 8, '4': 3, '5': 3, '10': 'frequencies'},
     {'1': 'patches', '3': 9, '4': 3, '5': 5, '10': 'patches'},
     {'1': 'sources', '3': 10, '4': 3, '5': 5, '10': 'sources'},
-    {'1': 'audio', '3': 11, '4': 1, '5': 12, '10': 'audio'},
+    {'1': 'duration', '3': 11, '4': 1, '5': 5, '9': 0, '10': 'duration', '17': true},
+    {'1': 'audio', '3': 12, '4': 1, '5': 12, '10': 'audio'},
+  ],
+  '8': [
+    {'1': '_duration'},
   ],
 };
 
@@ -74,8 +78,8 @@ final $typed_data.Uint8List callDescriptor = $convert.base64Decode(
     'cFIIZGF0ZVRpbWUSFgoGc3lzdGVtGAQgASgFUgZzeXN0ZW0SHAoJdGFsa2dyb3VwGAUgASgFUg'
     'l0YWxrZ3JvdXASFgoGc291cmNlGAYgASgFUgZzb3VyY2USHAoJZnJlcXVlbmN5GAcgASgDUglm'
     'cmVxdWVuY3kSIAoLZnJlcXVlbmNpZXMYCCADKANSC2ZyZXF1ZW5jaWVzEhgKB3BhdGNoZXMYCS'
-    'ADKAVSB3BhdGNoZXMSGAoHc291cmNlcxgKIAMoBVIHc291cmNlcxIUCgVhdWRpbxgLIAEoDFIF'
-    'YXVkaW8=');
+    'ADKAVSB3BhdGNoZXMSGAoHc291cmNlcxgKIAMoBVIHc291cmNlcxIfCghkdXJhdGlvbhgLIAEo'
+    'BUgAUghkdXJhdGlvbogBARIUCgVhdWRpbxgMIAEoDFIFYXVkaW9CCwoJX2R1cmF0aW9u');
 
 @$core.Deprecated('Use userPopupDescriptor instead')
 const UserPopup$json = {

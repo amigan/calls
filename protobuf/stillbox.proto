@@ -24,7 +24,8 @@ message Call {
   repeated int64 frequencies = 8;
   repeated int32 patches = 9;
   repeated int32 sources = 10;
-  bytes audio = 11;
+  optional int32 duration = 11;
+  bytes audio = 12;
 }
 
 message UserPopup {
