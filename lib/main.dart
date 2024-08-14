@@ -50,7 +50,9 @@ class CallsHomeState extends State<CallsHome> {
   Future<void> loadData() async {
     // Ensure the navigation happens in the context of this widget's subtree
     try {
-      await Provider.of<Stillbox>(context, listen: false).connect();
+      final sb = Provider.of<Stillbox>(context, listen: false);
+      await sb.setBearer();
+      await sb.connect();
     } catch (e) {
       if (mounted) {
         Navigator.pushReplacement(
