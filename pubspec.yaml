@@ -43,8 +43,11 @@ dependencies:
   flutter_secure_storage: ^9.2.2
   http: ^1.2.2
   just_audio: ^0.9.37
-  just_audio_windows: ^0.2.1
   just_audio_media_kit: ^2.0.5
+  media_kit_libs_linux: any
+  media_kit_libs_windows_audio: any
+  media_kit_native_event_loop: ^1.0.8
+  flutter_patch_package: '^0.0.11'
 
 dev_dependencies:
   flutter_test:

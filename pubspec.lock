@@ -61,10 +61,10 @@ packages:
     dependency: transitive
     description:
       name: crypto
-      sha256: ff625774173754681d66daaf4a448684fb04b78f902da9cb3d308c19cc5e8bab
+      sha256: "1dceb0cf05cb63a7852c11560060e53ec2f182079a16ced6f4395c5b0875baf8"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.3"
+    version: "3.0.4"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -110,6 +110,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
+  flutter_patch_package:
+    dependency: "direct main"
+    description:
+      name: flutter_patch_package
+      sha256: d24e953a5d223d53fded329e66c9037ddf3ea90f2ee85c730c4c846f287f4738
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.11"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -212,10 +220,10 @@ packages:
     dependency: "direct main"
     description:
       name: just_audio
-      sha256: b7cb6bbf3750caa924d03f432ba401ec300fd90936b3f73a9b33d58b1e96286b
+      sha256: ee50602364ba83fa6308f5512dd560c713ec3e1f2bc75f0db43618f0d82ef71a
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.37"
+    version: "0.9.39"
   just_audio_media_kit:
     dependency: "direct main"
     description:
@@ -236,18 +244,10 @@ packages:
     dependency: transitive
     description:
       name: just_audio_web
-      sha256: "134356b0fe3d898293102b33b5fd618831ffdc72bb7a1b726140abdf22772b70"
+      sha256: "0edb481ad4aa1ff38f8c40f1a3576013c3420bf6669b686fe661627d49bc606c"
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.9"
-  just_audio_windows:
-    dependency: "direct main"
-    description:
-      name: just_audio_windows
-      sha256: "48ab2dec79cf6097550602fe07b1a644f341450e138dc8fdc23e42ce0ed2d928"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.1"
+    version: "0.4.11"
   leak_tracker:
     dependency: transitive
     description:
@@ -312,6 +312,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.10+1"
+  media_kit_libs_linux:
+    dependency: "direct main"
+    description:
+      name: media_kit_libs_linux
+      sha256: e186891c31daa6bedab4d74dcdb4e8adfccc7d786bfed6ad81fe24a3b3010310
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.3"
+  media_kit_libs_windows_audio:
+    dependency: "direct main"
+    description:
+      name: media_kit_libs_windows_audio
+      sha256: c2fd558cc87b9d89a801141fcdffe02e338a3b21a41a18fbd63d5b221a1b8e53
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.9"
+  media_kit_native_event_loop:
+    dependency: "direct main"
+    description:
+      name: media_kit_native_event_loop
+      sha256: a605cf185499d14d58935b8784955a92a4bf0ff4e19a23de3d17a9106303930e
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.8"
   meta:
     dependency: transitive
     description:
@@ -428,10 +452,10 @@ packages:
     dependency: transitive
     description:
       name: rxdart
-      sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
+      sha256: "5c3004a4a8dbb94bd4bf5412a4def4acdaa12e12f269737a5751369e12d1a962"
       url: "https://pub.dev"
     source: hosted
-    version: "0.27.7"
+    version: "0.28.0"
   safe_local_storage:
     dependency: transitive
     description:

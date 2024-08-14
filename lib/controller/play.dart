@@ -1,6 +1,6 @@
-import 'dart:typed_data';
-
+import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart' as justaudio;
+import 'package:just_audio_media_kit/just_audio_media_kit.dart';
 //import 'package:audioplayers/audioplayers.dart' as auplay;
 //import 'dart:io' show Platform;
 
@@ -14,7 +14,7 @@ class Player {
   late AudioDriver driver;
   Player() {
 //    if (Platform.isMacOS || Platform.isIOS) {
-      driver = JustAudioDriver();
+    driver = JustAudioDriver();
 //    } else {
 //      driver = AudioPlayersDriver();
 //    }
@@ -40,8 +40,12 @@ class AudioPlayersDriver implements AudioDriver {
 class JustAudioDriver implements AudioDriver {
   final player = justaudio.AudioPlayer();
 
+  JustAudioDriver() {
+    JustAudioMediaKit.ensureInitialized();
+  }
+
   @override
-  Future<void> play(Call call) {
+  Future<void> play(Call call) async {
     player.setAudioSource(CallBytesSource(call));
     return player.play();
   }
