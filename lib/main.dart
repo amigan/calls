@@ -24,6 +24,7 @@ class CallsApp extends StatelessWidget {
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
+        scaffoldBackgroundColor: Colors.black,
       ),
       themeMode: ThemeMode.dark,
       home: const CallsHome(),
