@@ -7,6 +7,8 @@ class Player {
   final player = AudioPlayer();
   Player();
   Future<void> play(Call call) {
-    return player.play(BytesSource(Uint8List.fromList(call.audio)));
+    print('play!');
+    return Future.delayed(const Duration(seconds: 1));
+//    return player.play(BytesSource(Uint8List.fromList(call.audio)));
   }
 }

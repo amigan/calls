@@ -1,4 +1,4 @@
-package com.example.calls
+package me.dynatron.calls
 
 import io.flutter.embedding.android.FlutterActivity
 

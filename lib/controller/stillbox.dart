@@ -8,7 +8,7 @@ import 'play.dart';
 class BadAuthException implements Exception {}
 
 class Stillbox extends ChangeNotifier {
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
   Player player = Player();
   late IOWebSocketChannel channel;
   bool connected = false;
@@ -40,7 +40,8 @@ class Stillbox extends ChangeNotifier {
   }
 
   void setUris() {
-    if (baseUri != null && (baseUri!.scheme == 'http' || baseUri!.scheme == 'https')) {
+    if (baseUri != null &&
+        (baseUri!.scheme == 'http' || baseUri!.scheme == 'https')) {
       String socketUrl;
       final port = (baseUri!.hasPort ? ':${baseUri!.port}' : '');
       socketUrl =
@@ -52,20 +53,20 @@ class Stillbox extends ChangeNotifier {
   }
 
   void updateCookie(http.Response response) {
-        String? rawCookie = response.headers['set-cookie'];
-        if (rawCookie != null) {
-          int index = rawCookie.indexOf(';');
-          headers['cookie'] =
-              (index == -1) ? rawCookie : rawCookie.substring(0, index);
-        }
-   }
+    String? rawCookie = response.headers['set-cookie'];
+    if (rawCookie != null) {
+      int index = rawCookie.indexOf(';');
+      headers['cookie'] =
+          (index == -1) ? rawCookie : rawCookie.substring(0, index);
+    }
+  }
 
   Future<bool> doLogin(String uri, String username, String password) async {
-    if(baseUri == null) {
+    if (baseUri == null) {
       baseUri = Uri.parse(uri);
       setUris();
     }
-    Uri loginUri = Uri.parse(baseUri!.toString() + '/login');
+    Uri loginUri = Uri.parse('${baseUri!}/login');
     final form = <String, dynamic>{};
     form['username'] = username;
     form['password'] = password;
@@ -73,9 +74,10 @@ class Stillbox extends ChangeNotifier {
       loginUri,
       body: form,
     );
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       updateCookie(response);
       await storage.write(key: 'token', value: headers['cookie']);
+      await storage.write(key: 'baseURL', value: uri);
       await connect();
       return true;
     }
@@ -83,7 +85,7 @@ class Stillbox extends ChangeNotifier {
   }
 
   Future<void> connect() async {
-    if (connected = true) {
+    if (connected == true) {
       return;
     }
     channel = IOWebSocketChannel.connect(_wsUri, headers: headers);
@@ -96,11 +98,15 @@ class Stillbox extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setBearer() async {
+  Future<void> getBearer() async {
     String? storedToken = await storage.read(key: 'token');
-    if (storedToken == null) {
+    String? storedUri = await storage.read(key: 'baseURL');
+    if (storedToken == null || storedUri == null) {
       throw (BadAuthException);
     }
+    headers['cookie'] = storedToken;
+    baseUri = Uri.parse(storedUri);
+    setUris();
   }
 
   void _handleData(dynamic event) {

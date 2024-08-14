@@ -51,7 +51,7 @@ class CallsHomeState extends State<CallsHome> {
     // Ensure the navigation happens in the context of this widget's subtree
     try {
       final sb = Provider.of<Stillbox>(context, listen: false);
-      await sb.setBearer();
+      await sb.getBearer();
       await sb.connect();
     } catch (e) {
       if (mounted) {
