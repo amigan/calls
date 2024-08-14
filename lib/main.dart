@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'views/radio.dart';
 import 'package:provider/provider.dart';
 import 'views/login.dart';
-import 'controller/ws.dart';
+import 'controller/stillbox.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
-    create: (context) => Client(),
+    create: (context) => Stillbox(),
     child: const CallsApp(),
   ));
 }
@@ -39,8 +39,6 @@ class CallsHome extends StatefulWidget {
 }
 
 class CallsHomeState extends State<CallsHome> {
-  final c = Client();
-
   @override
   void initState() {
     super.initState();

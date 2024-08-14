@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/io.dart';
 import '../pb/stillbox.pb.dart';
+import 'play.dart';
 
-class Client extends ChangeNotifier {
-  late Uri _wsUri;
+class Stillbox extends ChangeNotifier {
+  Player player = Player();
   late IOWebSocketChannel channel;
+  bool connected = false;
+  late Uri _wsUri;
+  LiveState _state = LiveState.LS_LIVE;
+  Filter? currentFilter;
+  Call? _currentCall;
+  set state(LiveState newState) {
+    channel.sink.add(Live(state: newState, filter: currentFilter));
+    _state = newState;
+    notifyListeners();
+  }
 
-  Client() {
+  LiveState get state {
+    return _state;
+  }
+
+  Call? get currentCall => _currentCall;
+  set currentCall(Call? call) {
+    _currentCall = call;
+    notifyListeners();
+  }
+
+  Stillbox() {
     String socketUrl = 'ws://xenon:3050/ws';
     Uri baseUri = Uri.base;
     if (baseUri.scheme == 'http' || baseUri.scheme == 'https') {
@@ -17,13 +38,15 @@ class Client extends ChangeNotifier {
     _wsUri = Uri.parse(socketUrl);
   }
 
-  bool isConnected() {
-    return false;
-  }
-
   void connect() {
     channel = IOWebSocketChannel.connect(_wsUri);
-    channel.stream.listen((event) => _handleData(event));
+    channel.stream.listen((event) => _handleData(event), onDone: () {
+      connected = false;
+    }, onError: (error) {
+      print(error);
+    });
+    connected = true;
+    notifyListeners();
   }
 
   void _handleData(dynamic event) {
