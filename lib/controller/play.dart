@@ -1,20 +1,50 @@
 import 'dart:typed_data';
 
-import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart' as justaudio;
+import 'package:audioplayers/audioplayers.dart' as auplay;
+import 'dart:io' show Platform;
+
 import '../pb/stillbox.pb.dart';
 
+abstract class AudioDriver {
+  Future<void> play(Call call);
+}
+
 class Player {
-  final player = AudioPlayer();
-  Player();
+  late AudioDriver driver;
+  Player() {
+    if (Platform.isMacOS || Platform.isIOS) {
+      driver = JustAudioDriver();
+    } else {
+      driver = AudioPlayersDriver();
+    }
+  }
   Future<void> play(Call call) {
-    // TODO make a queue
-    return player.play(BytesSource(Uint8List.fromList(call.audio)));
+    return driver.play(call);
+  }
+  // TODO make a queue
+}
+
+class JustAudioDriver implements AudioDriver {
+  final player = justaudio.AudioPlayer();
+
+  @override
+  Future<void> play(Call call) {
+    player.setAudioSource(CallBytesSource(call));
+    return player.play();
   }
 }
 
-/*
-for just_audio (add just_audio and just_audio_linux)
-class CallBytesSource extends StreamAudioSource {
+class AudioPlayersDriver implements AudioDriver {
+  final player = auplay.AudioPlayer();
+
+  @override
+  Future<void> play(Call call) {
+    return player.play(auplay.BytesSource(Uint8List.fromList(call.audio)));
+  }
+}
+
+class CallBytesSource extends justaudio.StreamAudioSource {
   late Uint8List _buffer;
   final Call _call;
 
@@ -25,9 +55,9 @@ class CallBytesSource extends StreamAudioSource {
   CallBytesSource._(this._call, this._buffer) : super(tag: 'CallBytesSource');
 
   @override
-  Future<StreamAudioResponse> request([int? start, int? end]) async {
+  Future<justaudio.StreamAudioResponse> request([int? start, int? end]) async {
     // Returning the stream audio response with the parameters
-    return StreamAudioResponse(
+    return justaudio.StreamAudioResponse(
       sourceLength: _buffer.length,
       contentLength: (end ?? _buffer.length) - (start ?? 0),
       offset: start ?? 0,
@@ -36,4 +66,3 @@ class CallBytesSource extends StreamAudioSource {
     );
   }
 }
-*/
