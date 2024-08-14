@@ -95,21 +95,23 @@ class _LoginState extends State<Login> {
                                     userController.text,
                                     passwordController.text)
                                 .then((result) {
-                              if (result == true && mounted) {
-                                Navigator.pushReplacement(
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder: (context, animation,
-                                            secondaryAnimation) =>
-                                        const CallsHome(),
-                                    transitionsBuilder: (context, animation,
-                                        secondaryAnimation, child) {
-                                      return child;
-                                    },
-                                    transitionDuration:
-                                        const Duration(milliseconds: 0),
-                                  ),
-                                );
+                              if (result == true) {
+                                if (context.mounted) {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, animation,
+                                              secondaryAnimation) =>
+                                          const CallsHome(),
+                                      transitionsBuilder: (context, animation,
+                                          secondaryAnimation, child) {
+                                        return child;
+                                      },
+                                      transitionDuration:
+                                          const Duration(milliseconds: 0),
+                                    ),
+                                  );
+                                }
                               }
                             });
                           } else {

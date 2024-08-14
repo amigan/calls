@@ -14,7 +14,8 @@ class MainRadio extends StatefulWidget {
 class _MainRadioState extends State<MainRadio> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return const SafeArea(
+        child: Scaffold(
       body: Center(
         child: SizedBox(
             width: 500.0,
@@ -27,6 +28,6 @@ class _MainRadioState extends State<MainRadio> {
               ],
             )),
       ),
-    );
+    ));
   }
 }
