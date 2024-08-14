@@ -48,21 +48,24 @@ class CallsHomeState extends State<CallsHome> {
   }
 
   Future<void> loadData() async {
-    await Future.delayed(const Duration(seconds: 1)); // Simulate some delay
-
     // Ensure the navigation happens in the context of this widget's subtree
-    if (mounted) {
-      Navigator.pushReplacement(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              const Login(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return child;
-          },
-          transitionDuration: const Duration(milliseconds: 0),
-        ),
-      );
+    try {
+      await Provider.of<Stillbox>(context, listen: false).connect();
+    } catch (e) {
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const Login(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return child;
+            },
+            transitionDuration: const Duration(milliseconds: 0),
+          ),
+        );
+      }
     }
   }
 
