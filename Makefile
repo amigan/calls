@@ -6,4 +6,5 @@ patch:
 
 removemk:
 	# so yucky...
-	sed -i -e '/media_kit/d' pubspec.yaml
+	sed -i -e '/media_kit/d' pubspec.yaml lib/controller/play.dart
+	sed -i -e '/MediaKit/d' pubspec.yaml lib/controller/play.dart
