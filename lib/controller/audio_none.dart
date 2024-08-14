@@ -1,0 +1,3 @@
+class AudioInitializer {
+  void audioInit() {}
+}

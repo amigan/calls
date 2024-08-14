@@ -1,6 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart' as justaudio;
-import 'package:just_audio_media_kit/just_audio_media_kit.dart';
+import 'audio_none.dart'
+    if (dart.library.io) 'audio_mediakit.dart'
+    if (dart.library.html) 'audio_web.dart';
 //import 'package:audioplayers/audioplayers.dart' as auplay;
 //import 'dart:io' show Platform;
 
@@ -39,9 +41,10 @@ class AudioPlayersDriver implements AudioDriver {
 
 class JustAudioDriver implements AudioDriver {
   final player = justaudio.AudioPlayer();
+  final initializer = AudioInitializer();
 
   JustAudioDriver() {
-    JustAudioMediaKit.ensureInitialized();
+    initializer.audioInit();
   }
 
   @override
