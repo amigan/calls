@@ -1,20 +1,57 @@
-import 'dart:typed_data';
+import 'package:flutter/services.dart';
+import 'package:just_audio/just_audio.dart' as justaudio;
+import 'package:just_audio_media_kit/just_audio_media_kit.dart';
+//import 'package:audioplayers/audioplayers.dart' as auplay;
+//import 'dart:io' show Platform;
 
-import 'package:audioplayers/audioplayers.dart';
 import '../pb/stillbox.pb.dart';
 
+abstract class AudioDriver {
+  Future<void> play(Call call);
+}
+
 class Player {
-  final player = AudioPlayer();
-  Player();
-  Future<void> play(Call call) {
-    // TODO make a queue
-    return player.play(BytesSource(Uint8List.fromList(call.audio)));
+  late AudioDriver driver;
+  Player() {
+//    if (Platform.isMacOS || Platform.isIOS) {
+    driver = JustAudioDriver();
+//    } else {
+//      driver = AudioPlayersDriver();
+//    }
   }
+
+  Future<void> play(Call call) {
+    return driver.play(call);
+  }
+  // TODO make a queue
 }
 
 /*
-for just_audio (add just_audio and just_audio_linux)
-class CallBytesSource extends StreamAudioSource {
+class AudioPlayersDriver implements AudioDriver {
+  final player = auplay.AudioPlayer();
+
+  @override
+  Future<void> play(Call call) {
+    return player.play(auplay.BytesSource(Uint8List.fromList(call.audio)));
+  }
+}
+*/
+
+class JustAudioDriver implements AudioDriver {
+  final player = justaudio.AudioPlayer();
+
+  JustAudioDriver() {
+    JustAudioMediaKit.ensureInitialized();
+  }
+
+  @override
+  Future<void> play(Call call) async {
+    player.setAudioSource(CallBytesSource(call));
+    return player.play();
+  }
+}
+
+class CallBytesSource extends justaudio.StreamAudioSource {
   late Uint8List _buffer;
   final Call _call;
 
@@ -25,9 +62,9 @@ class CallBytesSource extends StreamAudioSource {
   CallBytesSource._(this._call, this._buffer) : super(tag: 'CallBytesSource');
 
   @override
-  Future<StreamAudioResponse> request([int? start, int? end]) async {
+  Future<justaudio.StreamAudioResponse> request([int? start, int? end]) async {
     // Returning the stream audio response with the parameters
-    return StreamAudioResponse(
+    return justaudio.StreamAudioResponse(
       sourceLength: _buffer.length,
       contentLength: (end ?? _buffer.length) - (start ?? 0),
       offset: start ?? 0,
@@ -36,4 +73,3 @@ class CallBytesSource extends StreamAudioSource {
     );
   }
 }
-*/
