@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:just_audio/just_audio.dart' as justaudio;
-import 'package:audioplayers/audioplayers.dart' as auplay;
-import 'dart:io' show Platform;
+//import 'package:audioplayers/audioplayers.dart' as auplay;
+//import 'dart:io' show Platform;
 
 import '../pb/stillbox.pb.dart';
 
@@ -13,17 +13,29 @@ abstract class AudioDriver {
 class Player {
   late AudioDriver driver;
   Player() {
-    if (Platform.isMacOS || Platform.isIOS) {
+//    if (Platform.isMacOS || Platform.isIOS) {
       driver = JustAudioDriver();
-    } else {
-      driver = AudioPlayersDriver();
-    }
+//    } else {
+//      driver = AudioPlayersDriver();
+//    }
   }
+
   Future<void> play(Call call) {
     return driver.play(call);
   }
   // TODO make a queue
 }
+
+/*
+class AudioPlayersDriver implements AudioDriver {
+  final player = auplay.AudioPlayer();
+
+  @override
+  Future<void> play(Call call) {
+    return player.play(auplay.BytesSource(Uint8List.fromList(call.audio)));
+  }
+}
+*/
 
 class JustAudioDriver implements AudioDriver {
   final player = justaudio.AudioPlayer();
@@ -32,15 +44,6 @@ class JustAudioDriver implements AudioDriver {
   Future<void> play(Call call) {
     player.setAudioSource(CallBytesSource(call));
     return player.play();
-  }
-}
-
-class AudioPlayersDriver implements AudioDriver {
-  final player = auplay.AudioPlayer();
-
-  @override
-  Future<void> play(Call call) {
-    return player.play(auplay.BytesSource(Uint8List.fromList(call.audio)));
   }
 }
 

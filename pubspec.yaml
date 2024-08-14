@@ -43,11 +43,8 @@ dependencies:
   flutter_secure_storage: ^9.2.2
   http: ^1.2.2
   just_audio: ^0.9.37
-  just_audio_mpv: ^0.1.7
   just_audio_windows: ^0.2.1
-  audioplayers: ^6.0.0
-  audioplayers_linux: ^4.0.0
-  audioplayers_darwin: ^6.0.0
+  just_audio_media_kit: ^2.0.5
 
 dev_dependencies:
   flutter_test:
