@@ -38,6 +38,7 @@ jobs:
           pub-cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:" # optional, change this to specify the cache path
       - run: flutter --version
       - run: flutter pub get
+      - run: make patch
 #     - run: flutter test
       - run: flutter build web --web-renderer auto
       - name: Upload artifacts

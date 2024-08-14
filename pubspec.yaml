@@ -44,10 +44,8 @@ dependencies:
   http: ^1.2.2
   just_audio: ^0.9.37
   just_audio_media_kit: ^2.0.5
-  media_kit_libs_linux: any
-  media_kit_libs_windows_audio: any
-  media_kit_native_event_loop: ^1.0.8
   patch_package: ^0.0.8
+  media_kit_libs_audio: ^1.0.4
 
 dev_dependencies:
   flutter_test:
