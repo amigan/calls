@@ -7,7 +7,7 @@ class Storer {
     return window.localStorage[key];
   }
 
-  void setKey(String key, String value) {
+  Future<void> setKey(String key, String value) async {
     window.localStorage[key] = value;
   }
 }

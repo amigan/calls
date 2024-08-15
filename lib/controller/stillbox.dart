@@ -70,6 +70,7 @@ class Stillbox extends ChangeNotifier {
     );
     if (response.statusCode == 200) {
       String? token = channel.updateCookie(response);
+      print('token is $token');
       storage.setKey('baseURL', uri);
       if (!kIsWeb && token != null) {
         storage.setKey('token', token);
@@ -98,10 +99,12 @@ class Stillbox extends ChangeNotifier {
     String? storedToken = await storage.getKey('token');
     late String? storedUri;
     storedUri = await storage.getKey('baseURL');
-    if (storedToken == null || storedUri == null) {
+    if ((!kIsWeb && storedToken == null) || storedUri == null) {
       throw (BadAuthException);
     }
-    channel.setCookie(storedToken);
+    if (!kIsWeb) {
+      channel.setCookie(storedToken!);
+    }
     baseUri = Uri.parse(storedUri);
     setUris();
   }

@@ -6,7 +6,7 @@ class Storer {
     return null;
   }
 
-  void setKey(String key, String value) {
+  Future<void> setKey(String key, String value) async {
     return;
   }
 }
