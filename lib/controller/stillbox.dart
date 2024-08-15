@@ -1,14 +1,16 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../pb/stillbox.pb.dart';
 import 'play.dart';
+import 'storage_none.dart'
+    if (dart.library.io) 'storage_secure.dart'
+    if (dart.library.html) 'storage_web.dart';
 
 class BadAuthException implements Exception {}
 
 class Stillbox extends ChangeNotifier {
-  final storage = const FlutterSecureStorage();
+  final storage = Storer();
   Player player = Player();
   late IOWebSocketChannel channel;
   bool connected = false;
@@ -62,10 +64,8 @@ class Stillbox extends ChangeNotifier {
   }
 
   Future<bool> doLogin(String uri, String username, String password) async {
-    if (baseUri == null) {
-      baseUri = Uri.parse(uri);
-      setUris();
-    }
+    baseUri = Uri.parse(uri);
+    setUris();
     String baseUriString = baseUri.toString();
     // trim trailing slash since gordio router really dislikes it
     if (baseUriString.endsWith('/')) {
@@ -81,8 +81,10 @@ class Stillbox extends ChangeNotifier {
     );
     if (response.statusCode == 200) {
       updateCookie(response);
-      await storage.write(key: 'token', value: headers['cookie']);
-      await storage.write(key: 'baseURL', value: uri);
+      storage.setKey('baseURL', uri);
+      if (!kIsWeb) {
+        storage.setKey('token', headers['cookie']!);
+      }
       await connect();
       return true;
     }
@@ -104,8 +106,9 @@ class Stillbox extends ChangeNotifier {
   }
 
   Future<void> getBearer() async {
-    String? storedToken = await storage.read(key: 'token');
-    String? storedUri = await storage.read(key: 'baseURL');
+    String? storedToken = await storage.getKey('token');
+    late String? storedUri;
+    storedUri = await storage.getKey('baseURL');
     if (storedToken == null || storedUri == null) {
       throw (BadAuthException);
     }
