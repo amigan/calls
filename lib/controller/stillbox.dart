@@ -1,24 +1,22 @@
 import 'package:flutter/foundation.dart';
-import 'package:web_socket_channel/io.dart';
 import 'package:http/http.dart' as http;
 import '../pb/stillbox.pb.dart';
 import 'play.dart';
-import 'storage_none.dart'
-    if (dart.library.io) 'storage_secure.dart'
-    if (dart.library.html) 'storage_web.dart';
+import 'stillbox_none.dart'
+    if (dart.library.io) 'stillbox_io.dart'
+    if (dart.library.html) 'stillbox_web.dart';
 
 class BadAuthException implements Exception {}
 
 class Stillbox extends ChangeNotifier {
   final storage = Storer();
   Player player = Player();
-  late IOWebSocketChannel channel;
+  final channel = Socketer();
   bool connected = false;
   late Uri _wsUri;
   LiveState _state = LiveState.LS_LIVE;
   Filter? currentFilter;
   Call? _currentCall;
-  Map<String, String> headers = {};
   Uri? baseUri = Uri.base;
 
   set state(LiveState newState) {
@@ -54,15 +52,6 @@ class Stillbox extends ChangeNotifier {
     }
   }
 
-  void updateCookie(http.Response response) {
-    String? rawCookie = response.headers['set-cookie'];
-    if (rawCookie != null) {
-      int index = rawCookie.indexOf(';');
-      headers['cookie'] =
-          (index == -1) ? rawCookie : rawCookie.substring(0, index);
-    }
-  }
-
   Future<bool> doLogin(String uri, String username, String password) async {
     baseUri = Uri.parse(uri);
     setUris();
@@ -80,10 +69,10 @@ class Stillbox extends ChangeNotifier {
       body: form,
     );
     if (response.statusCode == 200) {
-      updateCookie(response);
+      String? token = channel.updateCookie(response);
       storage.setKey('baseURL', uri);
-      if (!kIsWeb) {
-        storage.setKey('token', headers['cookie']!);
+      if (!kIsWeb && token != null) {
+        storage.setKey('token', token);
       }
       await connect();
       return true;
@@ -95,7 +84,7 @@ class Stillbox extends ChangeNotifier {
     if (connected == true) {
       return;
     }
-    channel = IOWebSocketChannel.connect(_wsUri, headers: headers);
+    channel.connect(_wsUri);
     channel.stream.listen((event) => _handleData(event), onDone: () {
       connected = false;
     }, onError: (error) {
@@ -112,7 +101,7 @@ class Stillbox extends ChangeNotifier {
     if (storedToken == null || storedUri == null) {
       throw (BadAuthException);
     }
-    headers['cookie'] = storedToken;
+    channel.setCookie(storedToken);
     baseUri = Uri.parse(storedUri);
     setUris();
   }
