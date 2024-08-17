@@ -3,13 +3,15 @@ package stillbox;
 option go_package = "./pb";
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
 
 message Message {
   oneof toClient_message {
     Call call = 1;
-    Notification notification = 2;
-    UserPopup popup = 3;
-    Error error = 4;
+    TalkgroupInfo tgInfo = 2;
+    Notification notification = 3;
+    UserPopup popup = 4;
+    Error error = 5;
   }
 }
 
@@ -34,6 +36,7 @@ message UserPopup {
 
 message Error {
   string error = 1;
+  Command command = 2;
 }
 
 message Notification {
@@ -46,7 +49,18 @@ message Command {
   oneof command {
     Live liveCommand = 1;
     Search searchCommand = 2;
+    Talkgroup tgCommand = 3;
   }
+}
+
+message TalkgroupInfo {
+  Talkgroup tg = 1;
+  optional string name = 2;
+  optional string group = 3;
+  optional int32 frequency = 4;
+  repeated string tags = 5;
+  optional google.protobuf.Struct metadata = 6;
+  bool learned = 7;
 }
 
 enum LiveState {

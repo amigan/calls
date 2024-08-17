@@ -1,10 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:just_audio/just_audio.dart';
 import '../pb/stillbox.pb.dart';
 import 'play.dart';
 import 'stillbox_none.dart'
     if (dart.library.io) 'stillbox_io.dart'
     if (dart.library.html) 'stillbox_web.dart';
+
+import 'talkgroups.dart';
 
 class BadAuthException implements Exception {}
 
@@ -12,11 +15,12 @@ class Stillbox extends ChangeNotifier {
   final storage = Storer();
   Player player = Player();
   final channel = Socketer();
+  late TalkgroupCache tgCache;
   bool connected = false;
   late Uri _wsUri;
   LiveState _state = LiveState.LS_LIVE;
   Filter? currentFilter;
-  Call? _currentCall;
+  SBCall? _currentCall;
   Uri? baseUri = Uri.base;
 
   set state(LiveState newState) {
@@ -29,14 +33,23 @@ class Stillbox extends ChangeNotifier {
     return _state;
   }
 
-  Call? get currentCall => _currentCall;
-  set currentCall(Call? call) {
+  SBCall? get currentCall => _currentCall;
+  set currentCall(SBCall? call) {
     _currentCall = call;
+    if (_currentCall != null) {
+      player.play(_currentCall!.call);
+    }
     notifyListeners();
   }
 
   Stillbox() {
     setUris();
+    player.driver.playerStateStream.listen((event) async {
+      if ((!event.playing && _currentCall != null) &&
+          event.processingState == ProcessingState.completed) {
+        currentCall = null;
+      }
+    });
   }
 
   void setUris() {
@@ -92,6 +105,7 @@ class Stillbox extends ChangeNotifier {
       print(error);
     });
     connected = true;
+    tgCache = TalkgroupCache(channel);
     notifyListeners();
   }
 
@@ -113,11 +127,21 @@ class Stillbox extends ChangeNotifier {
     final msg = Message.fromBuffer(event);
     switch (msg.whichToClientMessage()) {
       case Message_ToClientMessage.call:
-        player.play(msg.call);
+        currentCall = SBCall(
+            msg.call, tgCache.getTg(msg.call.system, msg.call.talkgroup));
       case Message_ToClientMessage.notification:
       case Message_ToClientMessage.popup:
       case Message_ToClientMessage.error:
+      case Message_ToClientMessage.tgInfo:
+        tgCache.handleTgInfo(msg.tgInfo);
       default:
     }
   }
+}
+
+class SBCall {
+  Call call;
+  Future<TalkgroupInfo> tg;
+
+  SBCall(this.call, this.tg);
 }

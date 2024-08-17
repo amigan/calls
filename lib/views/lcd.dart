@@ -1,4 +1,7 @@
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import '../controller/stillbox.dart';
+import '../pb/stillbox.pb.dart';
 
 class LCD extends StatefulWidget {
   const LCD({super.key});
@@ -8,16 +11,6 @@ class LCD extends StatefulWidget {
 }
 
 class _LCDState extends State<LCD> {
-  String? _currentTG;
-  int? _currentTGID;
-
-  void _setListening(String tg, int tgid) {
-    setState(() {
-      _currentTG = tg;
-      _currentTGID = tgid;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,7 +29,27 @@ class _LCDState extends State<LCD> {
         width: double.infinity,
         child: AspectRatio(
           aspectRatio: 16 / 9,
-          child: Container(),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: DefaultTextStyle(
+              style: const TextStyle(
+                color: Colors.black,
+              ),
+              child: Consumer<Stillbox>(builder: (context, sb, child) {
+                if (sb.currentCall != null) {
+                  return FutureBuilder(
+                      future: sb.currentCall?.tg,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<TalkgroupInfo> tgi) {
+                        return Text(
+                            '${tgi.data?.name ?? sb.currentCall!.call.talkgroup}${tgi.data?.learned ?? false ? ' 📓' : ''}');
+                      });
+                }
+
+                return const Text('');
+              }),
+            ),
+          ),
         ));
   }
 }

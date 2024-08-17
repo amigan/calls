@@ -14,6 +14,7 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'google/protobuf/struct.pb.dart' as $1;
 import 'google/protobuf/timestamp.pb.dart' as $0;
 import 'stillbox.pbenum.dart';
 
@@ -21,6 +22,7 @@ export 'stillbox.pbenum.dart';
 
 enum Message_ToClientMessage {
   call, 
+  tgInfo, 
   notification, 
   popup, 
   error, 
@@ -30,6 +32,7 @@ enum Message_ToClientMessage {
 class Message extends $pb.GeneratedMessage {
   factory Message({
     Call? call,
+    TalkgroupInfo? tgInfo,
     Notification? notification,
     UserPopup? popup,
     Error? error,
@@ -37,6 +40,9 @@ class Message extends $pb.GeneratedMessage {
     final $result = create();
     if (call != null) {
       $result.call = call;
+    }
+    if (tgInfo != null) {
+      $result.tgInfo = tgInfo;
     }
     if (notification != null) {
       $result.notification = notification;
@@ -55,17 +61,19 @@ class Message extends $pb.GeneratedMessage {
 
   static const $core.Map<$core.int, Message_ToClientMessage> _Message_ToClientMessageByTag = {
     1 : Message_ToClientMessage.call,
-    2 : Message_ToClientMessage.notification,
-    3 : Message_ToClientMessage.popup,
-    4 : Message_ToClientMessage.error,
+    2 : Message_ToClientMessage.tgInfo,
+    3 : Message_ToClientMessage.notification,
+    4 : Message_ToClientMessage.popup,
+    5 : Message_ToClientMessage.error,
     0 : Message_ToClientMessage.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Message', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
-    ..oo(0, [1, 2, 3, 4])
+    ..oo(0, [1, 2, 3, 4, 5])
     ..aOM<Call>(1, _omitFieldNames ? '' : 'call', subBuilder: Call.create)
-    ..aOM<Notification>(2, _omitFieldNames ? '' : 'notification', subBuilder: Notification.create)
-    ..aOM<UserPopup>(3, _omitFieldNames ? '' : 'popup', subBuilder: UserPopup.create)
-    ..aOM<Error>(4, _omitFieldNames ? '' : 'error', subBuilder: Error.create)
+    ..aOM<TalkgroupInfo>(2, _omitFieldNames ? '' : 'tgInfo', protoName: 'tgInfo', subBuilder: TalkgroupInfo.create)
+    ..aOM<Notification>(3, _omitFieldNames ? '' : 'notification', subBuilder: Notification.create)
+    ..aOM<UserPopup>(4, _omitFieldNames ? '' : 'popup', subBuilder: UserPopup.create)
+    ..aOM<Error>(5, _omitFieldNames ? '' : 'error', subBuilder: Error.create)
     ..hasRequiredFields = false
   ;
 
@@ -105,37 +113,48 @@ class Message extends $pb.GeneratedMessage {
   Call ensureCall() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  Notification get notification => $_getN(1);
+  TalkgroupInfo get tgInfo => $_getN(1);
   @$pb.TagNumber(2)
-  set notification(Notification v) { setField(2, v); }
+  set tgInfo(TalkgroupInfo v) { setField(2, v); }
   @$pb.TagNumber(2)
-  $core.bool hasNotification() => $_has(1);
+  $core.bool hasTgInfo() => $_has(1);
   @$pb.TagNumber(2)
-  void clearNotification() => clearField(2);
+  void clearTgInfo() => clearField(2);
   @$pb.TagNumber(2)
-  Notification ensureNotification() => $_ensure(1);
+  TalkgroupInfo ensureTgInfo() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  UserPopup get popup => $_getN(2);
+  Notification get notification => $_getN(2);
   @$pb.TagNumber(3)
-  set popup(UserPopup v) { setField(3, v); }
+  set notification(Notification v) { setField(3, v); }
   @$pb.TagNumber(3)
-  $core.bool hasPopup() => $_has(2);
+  $core.bool hasNotification() => $_has(2);
   @$pb.TagNumber(3)
-  void clearPopup() => clearField(3);
+  void clearNotification() => clearField(3);
   @$pb.TagNumber(3)
-  UserPopup ensurePopup() => $_ensure(2);
+  Notification ensureNotification() => $_ensure(2);
 
   @$pb.TagNumber(4)
-  Error get error => $_getN(3);
+  UserPopup get popup => $_getN(3);
   @$pb.TagNumber(4)
-  set error(Error v) { setField(4, v); }
+  set popup(UserPopup v) { setField(4, v); }
   @$pb.TagNumber(4)
-  $core.bool hasError() => $_has(3);
+  $core.bool hasPopup() => $_has(3);
   @$pb.TagNumber(4)
-  void clearError() => clearField(4);
+  void clearPopup() => clearField(4);
   @$pb.TagNumber(4)
-  Error ensureError() => $_ensure(3);
+  UserPopup ensurePopup() => $_ensure(3);
+
+  @$pb.TagNumber(5)
+  Error get error => $_getN(4);
+  @$pb.TagNumber(5)
+  set error(Error v) { setField(5, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasError() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearError() => clearField(5);
+  @$pb.TagNumber(5)
+  Error ensureError() => $_ensure(4);
 }
 
 class Call extends $pb.GeneratedMessage {
@@ -379,10 +398,14 @@ class UserPopup extends $pb.GeneratedMessage {
 class Error extends $pb.GeneratedMessage {
   factory Error({
     $core.String? error,
+    Command? command,
   }) {
     final $result = create();
     if (error != null) {
       $result.error = error;
+    }
+    if (command != null) {
+      $result.command = command;
     }
     return $result;
   }
@@ -392,6 +415,7 @@ class Error extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Error', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'error')
+    ..aOM<Command>(2, _omitFieldNames ? '' : 'command', subBuilder: Command.create)
     ..hasRequiredFields = false
   ;
 
@@ -424,6 +448,17 @@ class Error extends $pb.GeneratedMessage {
   $core.bool hasError() => $_has(0);
   @$pb.TagNumber(1)
   void clearError() => clearField(1);
+
+  @$pb.TagNumber(2)
+  Command get command => $_getN(1);
+  @$pb.TagNumber(2)
+  set command(Command v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasCommand() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearCommand() => clearField(2);
+  @$pb.TagNumber(2)
+  Command ensureCommand() => $_ensure(1);
 }
 
 class Notification extends $pb.GeneratedMessage {
@@ -509,6 +544,7 @@ class Notification extends $pb.GeneratedMessage {
 enum Command_Command {
   liveCommand, 
   searchCommand, 
+  tgCommand, 
   notSet
 }
 
@@ -516,6 +552,7 @@ class Command extends $pb.GeneratedMessage {
   factory Command({
     Live? liveCommand,
     Search? searchCommand,
+    Talkgroup? tgCommand,
   }) {
     final $result = create();
     if (liveCommand != null) {
@@ -523,6 +560,9 @@ class Command extends $pb.GeneratedMessage {
     }
     if (searchCommand != null) {
       $result.searchCommand = searchCommand;
+    }
+    if (tgCommand != null) {
+      $result.tgCommand = tgCommand;
     }
     return $result;
   }
@@ -533,12 +573,14 @@ class Command extends $pb.GeneratedMessage {
   static const $core.Map<$core.int, Command_Command> _Command_CommandByTag = {
     1 : Command_Command.liveCommand,
     2 : Command_Command.searchCommand,
+    3 : Command_Command.tgCommand,
     0 : Command_Command.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Command', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
-    ..oo(0, [1, 2])
+    ..oo(0, [1, 2, 3])
     ..aOM<Live>(1, _omitFieldNames ? '' : 'liveCommand', protoName: 'liveCommand', subBuilder: Live.create)
     ..aOM<Search>(2, _omitFieldNames ? '' : 'searchCommand', protoName: 'searchCommand', subBuilder: Search.create)
+    ..aOM<Talkgroup>(3, _omitFieldNames ? '' : 'tgCommand', protoName: 'tgCommand', subBuilder: Talkgroup.create)
     ..hasRequiredFields = false
   ;
 
@@ -587,6 +629,149 @@ class Command extends $pb.GeneratedMessage {
   void clearSearchCommand() => clearField(2);
   @$pb.TagNumber(2)
   Search ensureSearchCommand() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  Talkgroup get tgCommand => $_getN(2);
+  @$pb.TagNumber(3)
+  set tgCommand(Talkgroup v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasTgCommand() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTgCommand() => clearField(3);
+  @$pb.TagNumber(3)
+  Talkgroup ensureTgCommand() => $_ensure(2);
+}
+
+class TalkgroupInfo extends $pb.GeneratedMessage {
+  factory TalkgroupInfo({
+    Talkgroup? tg,
+    $core.String? name,
+    $core.String? group,
+    $core.int? frequency,
+    $core.Iterable<$core.String>? tags,
+    $1.Struct? metadata,
+    $core.bool? learned,
+  }) {
+    final $result = create();
+    if (tg != null) {
+      $result.tg = tg;
+    }
+    if (name != null) {
+      $result.name = name;
+    }
+    if (group != null) {
+      $result.group = group;
+    }
+    if (frequency != null) {
+      $result.frequency = frequency;
+    }
+    if (tags != null) {
+      $result.tags.addAll(tags);
+    }
+    if (metadata != null) {
+      $result.metadata = metadata;
+    }
+    if (learned != null) {
+      $result.learned = learned;
+    }
+    return $result;
+  }
+  TalkgroupInfo._() : super();
+  factory TalkgroupInfo.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory TalkgroupInfo.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'TalkgroupInfo', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
+    ..aOM<Talkgroup>(1, _omitFieldNames ? '' : 'tg', subBuilder: Talkgroup.create)
+    ..aOS(2, _omitFieldNames ? '' : 'name')
+    ..aOS(3, _omitFieldNames ? '' : 'group')
+    ..a<$core.int>(4, _omitFieldNames ? '' : 'frequency', $pb.PbFieldType.O3)
+    ..pPS(5, _omitFieldNames ? '' : 'tags')
+    ..aOM<$1.Struct>(6, _omitFieldNames ? '' : 'metadata', subBuilder: $1.Struct.create)
+    ..aOB(7, _omitFieldNames ? '' : 'learned')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  TalkgroupInfo clone() => TalkgroupInfo()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  TalkgroupInfo copyWith(void Function(TalkgroupInfo) updates) => super.copyWith((message) => updates(message as TalkgroupInfo)) as TalkgroupInfo;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static TalkgroupInfo create() => TalkgroupInfo._();
+  TalkgroupInfo createEmptyInstance() => create();
+  static $pb.PbList<TalkgroupInfo> createRepeated() => $pb.PbList<TalkgroupInfo>();
+  @$core.pragma('dart2js:noInline')
+  static TalkgroupInfo getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TalkgroupInfo>(create);
+  static TalkgroupInfo? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Talkgroup get tg => $_getN(0);
+  @$pb.TagNumber(1)
+  set tg(Talkgroup v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasTg() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearTg() => clearField(1);
+  @$pb.TagNumber(1)
+  Talkgroup ensureTg() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $core.String get name => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set name($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasName() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearName() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get group => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set group($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasGroup() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearGroup() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.int get frequency => $_getIZ(3);
+  @$pb.TagNumber(4)
+  set frequency($core.int v) { $_setSignedInt32(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasFrequency() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearFrequency() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.List<$core.String> get tags => $_getList(4);
+
+  @$pb.TagNumber(6)
+  $1.Struct get metadata => $_getN(5);
+  @$pb.TagNumber(6)
+  set metadata($1.Struct v) { setField(6, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasMetadata() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearMetadata() => clearField(6);
+  @$pb.TagNumber(6)
+  $1.Struct ensureMetadata() => $_ensure(5);
+
+  @$pb.TagNumber(7)
+  $core.bool get learned => $_getBF(6);
+  @$pb.TagNumber(7)
+  set learned($core.bool v) { $_setBool(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasLearned() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearLearned() => clearField(7);
 }
 
 class Live extends $pb.GeneratedMessage {

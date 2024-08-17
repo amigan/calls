@@ -10,6 +10,7 @@ import '../pb/stillbox.pb.dart';
 
 abstract class AudioDriver {
   Future<void> play(Call call);
+  Stream<justaudio.PlayerState> get playerStateStream;
 }
 
 class Player {
@@ -45,6 +46,10 @@ class JustAudioDriver implements AudioDriver {
 
   JustAudioDriver() {
     initializer.audioInit();
+  }
+
+  Stream<justaudio.PlayerState> get playerStateStream {
+    return player.playerStateStream;
   }
 
   @override
