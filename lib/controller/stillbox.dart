@@ -1,8 +1,7 @@
+import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:just_audio/just_audio.dart';
 import '../pb/stillbox.pb.dart';
-import 'play.dart';
 import 'stillbox_none.dart'
     if (dart.library.io) 'stillbox_io.dart'
     if (dart.library.html) 'stillbox_web.dart';
@@ -13,7 +12,6 @@ class BadAuthException implements Exception {}
 
 class Stillbox extends ChangeNotifier {
   final storage = Storer();
-  Player player = Player();
   final channel = Socketer();
   late TalkgroupCache tgCache;
   bool connected = false;
@@ -22,6 +20,8 @@ class Stillbox extends ChangeNotifier {
   Filter? currentFilter;
   SBCall? _currentCall;
   Uri? baseUri = Uri.base;
+  final StreamController<SBCall> callStream =
+      StreamController<SBCall>.broadcast();
 
   set state(LiveState newState) {
     channel.sink.add(Live(state: newState, filter: currentFilter));
@@ -34,22 +34,9 @@ class Stillbox extends ChangeNotifier {
   }
 
   SBCall? get currentCall => _currentCall;
-  set currentCall(SBCall? call) {
-    _currentCall = call;
-    if (_currentCall != null) {
-      player.play(_currentCall!.call);
-    }
-    notifyListeners();
-  }
 
   Stillbox() {
     setUris();
-    player.driver.playerStateStream.listen((event) async {
-      if ((!event.playing && _currentCall != null) &&
-          event.processingState == ProcessingState.completed) {
-        currentCall = null;
-      }
-    });
   }
 
   void setUris() {
@@ -83,7 +70,6 @@ class Stillbox extends ChangeNotifier {
     );
     if (response.statusCode == 200) {
       String? token = channel.updateCookie(response);
-      print('token is $token');
       storage.setKey('baseURL', uri);
       if (!kIsWeb && token != null) {
         storage.setKey('token', token);
@@ -127,8 +113,8 @@ class Stillbox extends ChangeNotifier {
     final msg = Message.fromBuffer(event);
     switch (msg.whichToClientMessage()) {
       case Message_ToClientMessage.call:
-        currentCall = SBCall(
-            msg.call, tgCache.getTg(msg.call.system, msg.call.talkgroup));
+        callStream.add(SBCall(
+            msg.call, tgCache.getTg(msg.call.system, msg.call.talkgroup)));
       case Message_ToClientMessage.notification:
       case Message_ToClientMessage.popup:
       case Message_ToClientMessage.error:

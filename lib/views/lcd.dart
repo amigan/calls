@@ -3,17 +3,10 @@ import 'package:flutter/material.dart';
 import '../controller/stillbox.dart';
 import '../pb/stillbox.pb.dart';
 
-class LCD extends StatefulWidget {
-  const LCD({super.key});
-
-  @override
-  State<LCD> createState() => _LCDState();
-}
-
-class _LCDState extends State<LCD> {
-  static const _lcdOnColor = Colors.amber;
-  static const _lcdOffColor = Color.fromARGB(255, 255, 219, 110);
-  Color _lcdColor = _lcdOffColor;
+class LCD extends StatelessWidget {
+  final Color _lcdColor;
+  final SBCall? _call;
+  const LCD(this._call, this._lcdColor, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,48 +38,38 @@ class _LCDState extends State<LCD> {
         ));
   }
 
-  void lcdOn() {
-    setState(() {
-      _lcdColor = _lcdOnColor;
-    });
-  }
-
-  void lcdOff() {
-    setState(() {
-      _lcdColor = _lcdOffColor;
-    });
-  }
-
   Widget lcdContents() {
-    return Consumer<Stillbox>(builder: (context, sb, child) {
-      if (sb.currentCall != null) {
-        lcdOn();
-        return FutureBuilder(
-            future: sb.currentCall?.tg,
-            builder: (BuildContext context, AsyncSnapshot<TalkgroupInfo> tgi) {
-              return Text(
-                  '${tgi.data?.name ?? sb.currentCall!.call.talkgroup}${tgi.data?.learned ?? false ? ' 📓' : ''}');
-            });
-      }
-
-      return const Text('');
-    });
+    return FutureBuilder(
+        future: _call?.tg,
+        builder: (BuildContext context, AsyncSnapshot<TalkgroupInfo> tgi) {
+          return Text(
+              '${tgi.data?.name ?? (_call?.call.talkgroup ?? '')}${tgi.data?.learned ?? false ? ' 📓' : ''}');
+        });
   }
 }
 
-class ScannerLabel extends StatefulWidget {
-  const ScannerLabel({super.key});
+class LED extends StatelessWidget {
+  final Color _ledColor;
+
+  LED(this._ledColor);
 
   @override
-  State<ScannerLabel> createState() => _ScannerLabelState();
+  Widget build(BuildContext context) {
+    return Container(
+      width: 20.0,
+      height: 20.0,
+      decoration: BoxDecoration(
+        color: _ledColor,
+        shape: BoxShape.circle,
+      ),
+    );
+  }
 }
 
-class _ScannerLabelState extends State<ScannerLabel> {
-  String _label = "Stillbox";
+class ScannerLabel extends StatelessWidget {
+  final String _label;
 
-  void setLabel(String s) {
-    _label = s;
-  }
+  const ScannerLabel(this._label, {super.key});
 
   @override
   Widget build(BuildContext context) {
