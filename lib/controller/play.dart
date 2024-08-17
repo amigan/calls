@@ -48,6 +48,7 @@ class JustAudioDriver implements AudioDriver {
     initializer.audioInit();
   }
 
+  @override
   Stream<justaudio.PlayerState> get playerStateStream {
     return player.playerStateStream;
   }

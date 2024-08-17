@@ -11,12 +11,16 @@ class LCD extends StatefulWidget {
 }
 
 class _LCDState extends State<LCD> {
+  static const _lcdOnColor = Colors.amber;
+  static const _lcdOffColor = Color.fromARGB(255, 255, 219, 110);
+  Color _lcdColor = _lcdOffColor;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: const BoxDecoration(
-          color: Colors.amber,
-          border: Border(
+        decoration: BoxDecoration(
+          color: _lcdColor,
+          border: const Border(
             top: BorderSide(width: 3.0, color: Colors.black),
             left: BorderSide(width: 3.0, color: Colors.black),
             bottom: BorderSide(
@@ -35,22 +39,38 @@ class _LCDState extends State<LCD> {
               style: const TextStyle(
                 color: Colors.black,
               ),
-              child: Consumer<Stillbox>(builder: (context, sb, child) {
-                if (sb.currentCall != null) {
-                  return FutureBuilder(
-                      future: sb.currentCall?.tg,
-                      builder: (BuildContext context,
-                          AsyncSnapshot<TalkgroupInfo> tgi) {
-                        return Text(
-                            '${tgi.data?.name ?? sb.currentCall!.call.talkgroup}${tgi.data?.learned ?? false ? ' 📓' : ''}');
-                      });
-                }
-
-                return const Text('');
-              }),
+              child: lcdContents(),
             ),
           ),
         ));
+  }
+
+  void lcdOn() {
+    setState(() {
+      _lcdColor = _lcdOnColor;
+    });
+  }
+
+  void lcdOff() {
+    setState(() {
+      _lcdColor = _lcdOffColor;
+    });
+  }
+
+  Widget lcdContents() {
+    return Consumer<Stillbox>(builder: (context, sb, child) {
+      if (sb.currentCall != null) {
+        lcdOn();
+        return FutureBuilder(
+            future: sb.currentCall?.tg,
+            builder: (BuildContext context, AsyncSnapshot<TalkgroupInfo> tgi) {
+              return Text(
+                  '${tgi.data?.name ?? sb.currentCall!.call.talkgroup}${tgi.data?.learned ?? false ? ' 📓' : ''}');
+            });
+      }
+
+      return const Text('');
+    });
   }
 }
 
