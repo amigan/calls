@@ -22,6 +22,7 @@ class Stillbox extends ChangeNotifier {
   Uri? baseUri = Uri.base;
   int queueLen = 0;
   final StreamController<SBCall> callStream = StreamController<SBCall>();
+  final StreamController<int> callQStream = StreamController<int>();
 
   set state(LiveState newState) {
     channel.sink.add(Live(state: newState, filter: currentFilter));
@@ -110,8 +111,8 @@ class Stillbox extends ChangeNotifier {
   }
 
   void dispatchCall(SBCall call) {
-    queueLen++;
     callStream.add(call);
+    callQStream.add(1);
   }
 
   void _handleData(dynamic event) {

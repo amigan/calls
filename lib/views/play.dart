@@ -14,12 +14,10 @@ class JustAudioDriver {
     initializer.audioInit();
   }
 
-  @override
   Stream<justaudio.PlayerState> get playerStateStream {
     return player.playerStateStream;
   }
 
-  @override
   Future<void> play(Call call) async {
     player.setAudioSource(CallBytesSource(call));
     await player.play();
