@@ -26,6 +26,7 @@ class _MainRadioState extends State<MainRadio> {
   Color _ledColor = Colors.black;
   Timer? _lcdTimer;
   SBCall? _call;
+  Completer _completer = Completer();
 
   @override
   void initState() {
@@ -34,6 +35,7 @@ class _MainRadioState extends State<MainRadio> {
     player.player.playerStateStream.listen((event) async {
       if (!event.playing &&
           event.processingState == ProcessingState.completed) {
+        _completer.complete();
         setState(() {
           _ledColor = Colors.black;
         });
@@ -50,9 +52,11 @@ class _MainRadioState extends State<MainRadio> {
         _call = call;
         sb.queueLen--;
       });
-      print("bef");
+      print("bef" + DateTime.now().toString());
+      _completer = Completer();
       await player.play(call.call);
-      print("aft");
+      await _completer.future;
+      print("aft" + DateTime.now().toString());
       lcdOff();
     } //);
   }
