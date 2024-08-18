@@ -17,7 +17,7 @@ class MainRadio extends StatefulWidget {
 }
 
 class _MainRadioState extends State<MainRadio> {
-  Player player = Player();
+  final player = JustAudioDriver();
   bool lcdState = false;
   static const _lcdTimeout = 3;
   static const _lcdOnColor = Colors.amber;
@@ -26,13 +26,12 @@ class _MainRadioState extends State<MainRadio> {
   Color _ledColor = Colors.black;
   Timer? _lcdTimer;
   SBCall? _call;
-  Future<bool> completion;
 
   @override
   void initState() {
     super.initState();
     final sb = Provider.of<Stillbox>(context, listen: false);
-    player.driver.playerStateStream.listen((event) async {
+    player.player.playerStateStream.listen((event) async {
       if (!event.playing &&
           event.processingState == ProcessingState.completed) {
         setState(() {

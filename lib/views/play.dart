@@ -3,43 +3,10 @@ import 'package:just_audio/just_audio.dart' as justaudio;
 import 'audio_none.dart'
     if (dart.library.io) 'audio_mediakit.dart'
     if (dart.library.html) 'audio_web.dart';
-//import 'package:audioplayers/audioplayers.dart' as auplay;
-//import 'dart:io' show Platform;
 
 import '../pb/stillbox.pb.dart';
 
-abstract class AudioDriver {
-  Future<void> play(Call call);
-  Stream<justaudio.PlayerState> get playerStateStream;
-}
-
-class Player {
-  late AudioDriver driver;
-  Player() {
-//    if (Platform.isMacOS || Platform.isIOS) {
-    driver = JustAudioDriver();
-//    } else {
-//      driver = AudioPlayersDriver();
-//    }
-  }
-
-  Future<void> play(Call call) async {
-    await driver.play(call);
-  }
-}
-
-/*
-class AudioPlayersDriver implements AudioDriver {
-  final player = auplay.AudioPlayer();
-
-  @override
-  Future<void> play(Call call) {
-    return player.play(auplay.BytesSource(Uint8List.fromList(call.audio)));
-  }
-}
-*/
-
-class JustAudioDriver implements AudioDriver {
+class JustAudioDriver {
   final player = justaudio.AudioPlayer();
   final initializer = AudioInitializer();
 
