@@ -20,8 +20,8 @@ class Stillbox extends ChangeNotifier {
   Filter? currentFilter;
   SBCall? _currentCall;
   Uri? baseUri = Uri.base;
-  final StreamController<SBCall> callStream =
-      StreamController<SBCall>.broadcast();
+  int queueLen = 0;
+  final StreamController<SBCall> callStream = StreamController<SBCall>();
 
   set state(LiveState newState) {
     channel.sink.add(Live(state: newState, filter: currentFilter));
@@ -109,11 +109,16 @@ class Stillbox extends ChangeNotifier {
     setUris();
   }
 
+  void dispatchCall(SBCall call) {
+    queueLen++;
+    callStream.add(call);
+  }
+
   void _handleData(dynamic event) {
     final msg = Message.fromBuffer(event);
     switch (msg.whichToClientMessage()) {
       case Message_ToClientMessage.call:
-        callStream.add(SBCall(
+        dispatchCall(SBCall(
             msg.call, tgCache.getTg(msg.call.system, msg.call.talkgroup)));
       case Message_ToClientMessage.notification:
       case Message_ToClientMessage.popup:

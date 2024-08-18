@@ -26,6 +26,7 @@ class _MainRadioState extends State<MainRadio> {
   Color _ledColor = Colors.black;
   Timer? _lcdTimer;
   SBCall? _call;
+  Future<bool> completion;
 
   @override
   void initState() {
@@ -39,14 +40,22 @@ class _MainRadioState extends State<MainRadio> {
         });
       }
     });
-    sb.callStream.stream.listen((call) async {
+    _callLoop(sb);
+    //  sb.callStream.stream.listen((call) async {
+  }
+
+  void _callLoop(Stillbox sb) async {
+    await for (final call in sb.callStream.stream) {
       lcdOn();
       setState(() {
         _call = call;
+        sb.queueLen--;
       });
+      print("bef");
       await player.play(call.call);
+      print("aft");
       lcdOff();
-    });
+    } //);
   }
 
   void lcdOn() {
@@ -88,7 +97,8 @@ class _MainRadioState extends State<MainRadio> {
                       const ScannerLabel('Stillbox'),
                       LED(_ledColor),
                     ]),
-                LCD(_call, _lcdColor),
+                LCD(_call, _lcdColor,
+                    Provider.of<Stillbox>(context, listen: false).queueLen),
                 const Keypad(),
               ],
             )),

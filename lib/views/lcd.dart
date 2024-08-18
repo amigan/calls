@@ -6,7 +6,8 @@ import '../pb/stillbox.pb.dart';
 class LCD extends StatelessWidget {
   final Color _lcdColor;
   final SBCall? _call;
-  const LCD(this._call, this._lcdColor, {super.key});
+  final int queueLen;
+  const LCD(this._call, this._lcdColor, this.queueLen, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +40,18 @@ class LCD extends StatelessWidget {
   }
 
   Widget lcdContents() {
-    return FutureBuilder(
-        future: _call?.tg,
-        builder: (BuildContext context, AsyncSnapshot<TalkgroupInfo> tgi) {
-          return Text(
-              '${tgi.data?.name ?? (_call?.call.talkgroup ?? '')}${tgi.data?.learned ?? false ? ' 📓' : ''}');
-        });
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          FutureBuilder(
+              future: _call?.tg,
+              builder:
+                  (BuildContext context, AsyncSnapshot<TalkgroupInfo> tgi) {
+                return Text(
+                    '${tgi.data?.name ?? (_call?.call.talkgroup ?? '')}${tgi.data?.learned ?? false ? ' 📓' : ''}');
+              }),
+          Text('Q: $queueLen'),
+        ]);
   }
 }
 
