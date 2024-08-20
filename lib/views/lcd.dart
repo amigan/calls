@@ -44,7 +44,7 @@ class LCD extends StatelessWidget {
   Widget lcdContents() {
     String callTime = '';
     if (_call != null) {
-      callTime = timeFormat.format(_call.call.dateTime.toDateTime());
+      callTime = timeFormat.format(_call.call.dateTime.toDateTime(toLocal: true));
     }
     return FutureBuilder(
         future: _call?.tg,
