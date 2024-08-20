@@ -44,29 +44,48 @@ class LCD extends StatelessWidget {
   Widget lcdContents() {
     String callTime = '';
     if (_call != null) {
-      callTime = timeFormat.format(_call.call.dateTime.toDateTime(toLocal: true));
+      callTime =
+          timeFormat.format(_call.call.dateTime.toDateTime(toLocal: true));
     }
     return FutureBuilder(
         future: _call?.tg,
         builder: (BuildContext context, AsyncSnapshot<TalkgroupInfo> tgi) {
-          return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(callTime),
-                  Text('${tgi.data?.systemName ?? (_call?.call.system ?? '')}'),
-                  Text('Q: $queueLen'),
-                ]),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                      '${tgi.data?.name ?? (_call?.call.talkgroup ?? '')}${tgi.data?.learned ?? false ? ' 📓' : ''}'),
-                  Text(_call != null ? 'TG: ${_call.call.talkgroup}' : ''),
-                ])
-          ]);
+          return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(callTime),
+                      Text(
+                          '${tgi.data?.systemName ?? (_call?.call.system ?? '')}'),
+                      Text('Q: $queueLen'),
+                    ]),
+                Padding(
+                    padding: EdgeInsets.only(top: 14.0, bottom: 14.0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Flexible(
+                              child: Text(
+                                  '${tgi.data?.name ?? (_call?.call.talkgroup ?? '')}${tgi.data?.learned ?? false ? ' 📓' : ''}',
+                                  style: const TextStyle(
+                                    fontSize: 20.0,
+                                    overflow: TextOverflow.ellipsis,
+                                  ))),
+                        ])),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(_call != null ? 'TG: ${_call.call.talkgroup}' : ''),
+                      Text(_call != null
+                          ? '${(_call.call.frequency.toDouble() / 1024 / 1024).toStringAsFixed(4)} MHz'
+                          : ''),
+                      Text(_call != null ? 'S: ${_call.call.source}' : ''),
+                    ]),
+              ]);
         });
   }
 }
@@ -74,13 +93,14 @@ class LCD extends StatelessWidget {
 class LED extends StatelessWidget {
   final Color _ledColor;
 
-  LED(this._ledColor);
+  const LED(this._ledColor, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 20.0,
       height: 20.0,
+      margin: const EdgeInsets.only(top: 4.0, right: 10.0),
       decoration: BoxDecoration(
         color: _ledColor,
         shape: BoxShape.circle,
