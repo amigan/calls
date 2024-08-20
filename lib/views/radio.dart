@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:just_audio/just_audio.dart';
 import '../../views/lcd.dart';
@@ -28,6 +29,7 @@ class _MainRadioState extends State<MainRadio> {
   SBCall? _call;
   Completer _completer = Completer();
   int queueLen = 0;
+  DateFormat timeFormat = DateFormat('HH:mm');
 
   @override
   void initState() {
@@ -104,7 +106,7 @@ class _MainRadioState extends State<MainRadio> {
                       const ScannerLabel('Stillbox'),
                       LED(_ledColor),
                     ]),
-                LCD(_call, _lcdColor, queueLen),
+                LCD(_call, _lcdColor, queueLen, timeFormat),
                 const Keypad(),
               ],
             )),

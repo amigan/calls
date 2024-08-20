@@ -150,12 +150,13 @@ const TalkgroupInfo$json = {
   '1': 'TalkgroupInfo',
   '2': [
     {'1': 'tg', '3': 1, '4': 1, '5': 11, '6': '.stillbox.Talkgroup', '10': 'tg'},
-    {'1': 'name', '3': 2, '4': 1, '5': 9, '9': 0, '10': 'name', '17': true},
-    {'1': 'group', '3': 3, '4': 1, '5': 9, '9': 1, '10': 'group', '17': true},
-    {'1': 'frequency', '3': 4, '4': 1, '5': 5, '9': 2, '10': 'frequency', '17': true},
-    {'1': 'tags', '3': 5, '4': 3, '5': 9, '10': 'tags'},
-    {'1': 'metadata', '3': 6, '4': 1, '5': 11, '6': '.google.protobuf.Struct', '9': 3, '10': 'metadata', '17': true},
-    {'1': 'learned', '3': 7, '4': 1, '5': 8, '10': 'learned'},
+    {'1': 'system_name', '3': 2, '4': 1, '5': 9, '10': 'systemName'},
+    {'1': 'name', '3': 3, '4': 1, '5': 9, '9': 0, '10': 'name', '17': true},
+    {'1': 'group', '3': 4, '4': 1, '5': 9, '9': 1, '10': 'group', '17': true},
+    {'1': 'frequency', '3': 5, '4': 1, '5': 5, '9': 2, '10': 'frequency', '17': true},
+    {'1': 'tags', '3': 6, '4': 3, '5': 9, '10': 'tags'},
+    {'1': 'metadata', '3': 7, '4': 1, '5': 11, '6': '.google.protobuf.Struct', '9': 3, '10': 'metadata', '17': true},
+    {'1': 'learned', '3': 8, '4': 1, '5': 8, '10': 'learned'},
   ],
   '8': [
     {'1': '_name'},
@@ -167,12 +168,12 @@ const TalkgroupInfo$json = {
 
 /// Descriptor for `TalkgroupInfo`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List talkgroupInfoDescriptor = $convert.base64Decode(
-    'Cg1UYWxrZ3JvdXBJbmZvEiMKAnRnGAEgASgLMhMuc3RpbGxib3guVGFsa2dyb3VwUgJ0ZxIXCg'
-    'RuYW1lGAIgASgJSABSBG5hbWWIAQESGQoFZ3JvdXAYAyABKAlIAVIFZ3JvdXCIAQESIQoJZnJl'
-    'cXVlbmN5GAQgASgFSAJSCWZyZXF1ZW5jeYgBARISCgR0YWdzGAUgAygJUgR0YWdzEjgKCG1ldG'
-    'FkYXRhGAYgASgLMhcuZ29vZ2xlLnByb3RvYnVmLlN0cnVjdEgDUghtZXRhZGF0YYgBARIYCgds'
-    'ZWFybmVkGAcgASgIUgdsZWFybmVkQgcKBV9uYW1lQggKBl9ncm91cEIMCgpfZnJlcXVlbmN5Qg'
-    'sKCV9tZXRhZGF0YQ==');
+    'Cg1UYWxrZ3JvdXBJbmZvEiMKAnRnGAEgASgLMhMuc3RpbGxib3guVGFsa2dyb3VwUgJ0ZxIfCg'
+    'tzeXN0ZW1fbmFtZRgCIAEoCVIKc3lzdGVtTmFtZRIXCgRuYW1lGAMgASgJSABSBG5hbWWIAQES'
+    'GQoFZ3JvdXAYBCABKAlIAVIFZ3JvdXCIAQESIQoJZnJlcXVlbmN5GAUgASgFSAJSCWZyZXF1ZW'
+    '5jeYgBARISCgR0YWdzGAYgAygJUgR0YWdzEjgKCG1ldGFkYXRhGAcgASgLMhcuZ29vZ2xlLnBy'
+    'b3RvYnVmLlN0cnVjdEgDUghtZXRhZGF0YYgBARIYCgdsZWFybmVkGAggASgIUgdsZWFybmVkQg'
+    'cKBV9uYW1lQggKBl9ncm91cEIMCgpfZnJlcXVlbmN5QgsKCV9tZXRhZGF0YQ==');
 
 @$core.Deprecated('Use liveDescriptor instead')
 const Live$json = {

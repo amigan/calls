@@ -1,4 +1,4 @@
-import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import '../controller/stillbox.dart';
 import '../pb/stillbox.pb.dart';
@@ -7,7 +7,9 @@ class LCD extends StatelessWidget {
   final Color _lcdColor;
   final SBCall? _call;
   final int queueLen;
-  const LCD(this._call, this._lcdColor, this.queueLen, {super.key});
+  final DateFormat timeFormat;
+  const LCD(this._call, this._lcdColor, this.queueLen, this.timeFormat,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,18 +42,32 @@ class LCD extends StatelessWidget {
   }
 
   Widget lcdContents() {
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          FutureBuilder(
-              future: _call?.tg,
-              builder:
-                  (BuildContext context, AsyncSnapshot<TalkgroupInfo> tgi) {
-                return Text(
-                    '${tgi.data?.name ?? (_call?.call.talkgroup ?? '')}${tgi.data?.learned ?? false ? ' 📓' : ''}');
-              }),
-          Text('Q: $queueLen'),
-        ]);
+    String callTime = '';
+    if (_call != null) {
+      callTime = timeFormat.format(_call.call.dateTime.toDateTime());
+    }
+    return FutureBuilder(
+        future: _call?.tg,
+        builder: (BuildContext context, AsyncSnapshot<TalkgroupInfo> tgi) {
+          return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(callTime),
+                  Text('${tgi.data?.systemName ?? (_call?.call.system ?? '')}'),
+                  Text('Q: $queueLen'),
+                ]),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                      '${tgi.data?.name ?? (_call?.call.talkgroup ?? '')}${tgi.data?.learned ?? false ? ' 📓' : ''}'),
+                  Text(_call != null ? 'TG: ${_call.call.talkgroup}' : ''),
+                ])
+          ]);
+        });
   }
 }
 

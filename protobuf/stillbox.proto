@@ -55,12 +55,13 @@ message Command {
 
 message TalkgroupInfo {
   Talkgroup tg = 1;
-  optional string name = 2;
-  optional string group = 3;
-  optional int32 frequency = 4;
-  repeated string tags = 5;
-  optional google.protobuf.Struct metadata = 6;
-  bool learned = 7;
+  string system_name = 2;
+  optional string name = 3;
+  optional string group = 4;
+  optional int32 frequency = 5;
+  repeated string tags = 6;
+  optional google.protobuf.Struct metadata = 7;
+  bool learned = 8;
 }
 
 enum LiveState {
