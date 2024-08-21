@@ -73,7 +73,7 @@ class _MainRadioState extends State<MainRadio> {
       _lcdTimer = null;
     }
     setState(() {
-      _ledColor = Colors.purple;
+      _ledColor = const Color.fromARGB(255, 226, 62, 255);
       _lcdColor = _lcdOnColor;
     });
   }

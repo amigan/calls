@@ -19,8 +19,7 @@ class LCD extends StatelessWidget {
           border: const Border(
             top: BorderSide(width: 3.0, color: Colors.black),
             left: BorderSide(width: 3.0, color: Colors.black),
-            bottom: BorderSide(
-                width: 3.0, color: Color.fromARGB(172, 255, 255, 255)),
+            bottom: BorderSide(width: 3.0, color: Colors.white),
             right: BorderSide(width: 3.0, color: Colors.white),
           ),
         ),
@@ -56,33 +55,30 @@ class LCD extends StatelessWidget {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+                    children: [
                       Text(callTime),
                       Text(
                           '${tgi.data?.systemName ?? (_call?.call.system ?? '')}'),
                       Text('Q: $queueLen'),
                     ]),
-                Padding(
-                    padding: EdgeInsets.only(top: 14.0, bottom: 14.0),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Flexible(
-                              child: Text(
+                Row(
+                  children: [Flexible(
+                    child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                              Text(
                                   '${tgi.data?.name ?? (_call?.call.talkgroup ?? '')}${tgi.data?.learned ?? false ? ' 📓' : ''}',
                                   style: const TextStyle(
                                     fontSize: 20.0,
                                     overflow: TextOverflow.ellipsis,
-                                  ))),
-                        ])),
+                                  )),
+                      Text(_call != null ? '${_call.call.talkgroup}' : ''),
+                    ]),
+                  )]),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(_call != null ? 'TG: ${_call.call.talkgroup}' : ''),
-                      Text(_call != null
-                          ? '${(_call.call.frequency.toDouble() / 1024 / 1024).toStringAsFixed(4)} MHz'
-                          : ''),
+                      Text(_call != null ? '${(_call.call.frequency.toDouble() / 1024 / 1024).toStringAsFixed(4)} MHz' : ''),
                       Text(_call != null ? 'S: ${_call.call.source}' : ''),
                     ]),
               ]);
@@ -104,6 +100,13 @@ class LED extends StatelessWidget {
       decoration: BoxDecoration(
         color: _ledColor,
         shape: BoxShape.circle,
+        border: const Border(
+            top: BorderSide(width: 1.0, color: Colors.white),
+            left: BorderSide(width: 1.0, color: Colors.white),
+        ),
+        boxShadow: [
+          BoxShadow(color: const Color.fromARGB(255, 151, 151, 151), offset: Offset.fromDirection(1, 3.0), blurRadius: 4.0, spreadRadius: 2.0)
+        ]
       ),
     );
   }
