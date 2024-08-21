@@ -17,10 +17,10 @@ class LCD extends StatelessWidget {
         decoration: BoxDecoration(
           color: _lcdColor,
           border: const Border(
-            top: BorderSide(width: 3.0, color: Colors.black),
-            left: BorderSide(width: 3.0, color: Colors.black),
+            top: BorderSide(width: 3.0, color: Color.fromARGB(255, 94, 94, 94)),
+            left: BorderSide(width: 3.0, color: Color.fromARGB(255, 63, 63, 63)),
             bottom: BorderSide(width: 3.0, color: Colors.white),
-            right: BorderSide(width: 3.0, color: Colors.white),
+            right: BorderSide(width: 3.0, color: Color.fromARGB(255, 229, 229, 229)),
           ),
         ),
         margin: const EdgeInsets.all(16.0),
@@ -62,19 +62,30 @@ class LCD extends StatelessWidget {
                       Text('Q: $queueLen'),
                     ]),
                 Row(
-                  children: [Flexible(
-                    child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                              Text(
-                                  '${tgi.data?.name ?? (_call?.call.talkgroup ?? '')}${tgi.data?.learned ?? false ? ' 📓' : ''}',
-                                  style: const TextStyle(
-                                    fontSize: 20.0,
-                                    overflow: TextOverflow.ellipsis,
-                                  )),
-                      Text(_call != null ? '${_call.call.talkgroup}' : ''),
-                    ]),
-                  )]),
+                  children: [Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        ConstrainedBox(
+                          constraints: BoxConstraints(maxWidth: MediaQuery.sizeOf(context).width / 1.6),
+                          child: Text(
+                            '${tgi.data?.name ?? (_call?.call.talkgroup ?? '')}${tgi.data?.learned ?? false ? ' 📓' : ''}',
+                            style: const TextStyle(
+                              fontSize: 20.0,
+                              overflow: TextOverflow.ellipsis,
+                            )),
+                        ),
+                          Text(_call != null ? '${_call.call.talkgroup}' : '',
+                          textAlign: TextAlign.end,
+                          style: const TextStyle(
+                            fontSize: 10,
+                            overflow: TextOverflow.ellipsis,
+                          )),
+                        ],
+                            ),
+                    Text(tgi.data != null ? tgi.data!.group : ''),
+                  ])]),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
