@@ -648,6 +648,7 @@ class TalkgroupInfo extends $pb.GeneratedMessage {
     $core.String? systemName,
     $core.String? name,
     $core.String? group,
+    $core.String? alphaTag,
     $core.int? frequency,
     $core.Iterable<$core.String>? tags,
     $1.Struct? metadata,
@@ -665,6 +666,9 @@ class TalkgroupInfo extends $pb.GeneratedMessage {
     }
     if (group != null) {
       $result.group = group;
+    }
+    if (alphaTag != null) {
+      $result.alphaTag = alphaTag;
     }
     if (frequency != null) {
       $result.frequency = frequency;
@@ -689,10 +693,11 @@ class TalkgroupInfo extends $pb.GeneratedMessage {
     ..aOS(2, _omitFieldNames ? '' : 'systemName')
     ..aOS(3, _omitFieldNames ? '' : 'name')
     ..aOS(4, _omitFieldNames ? '' : 'group')
-    ..a<$core.int>(5, _omitFieldNames ? '' : 'frequency', $pb.PbFieldType.O3)
-    ..pPS(6, _omitFieldNames ? '' : 'tags')
-    ..aOM<$1.Struct>(7, _omitFieldNames ? '' : 'metadata', subBuilder: $1.Struct.create)
-    ..aOB(8, _omitFieldNames ? '' : 'learned')
+    ..aOS(5, _omitFieldNames ? '' : 'alphaTag')
+    ..a<$core.int>(6, _omitFieldNames ? '' : 'frequency', $pb.PbFieldType.O3)
+    ..pPS(7, _omitFieldNames ? '' : 'tags')
+    ..aOM<$1.Struct>(8, _omitFieldNames ? '' : 'metadata', subBuilder: $1.Struct.create)
+    ..aOB(9, _omitFieldNames ? '' : 'learned')
     ..hasRequiredFields = false
   ;
 
@@ -756,36 +761,45 @@ class TalkgroupInfo extends $pb.GeneratedMessage {
   void clearGroup() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.int get frequency => $_getIZ(4);
+  $core.String get alphaTag => $_getSZ(4);
   @$pb.TagNumber(5)
-  set frequency($core.int v) { $_setSignedInt32(4, v); }
+  set alphaTag($core.String v) { $_setString(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasFrequency() => $_has(4);
+  $core.bool hasAlphaTag() => $_has(4);
   @$pb.TagNumber(5)
-  void clearFrequency() => clearField(5);
+  void clearAlphaTag() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.List<$core.String> get tags => $_getList(5);
+  $core.int get frequency => $_getIZ(5);
+  @$pb.TagNumber(6)
+  set frequency($core.int v) { $_setSignedInt32(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasFrequency() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearFrequency() => clearField(6);
 
   @$pb.TagNumber(7)
-  $1.Struct get metadata => $_getN(6);
-  @$pb.TagNumber(7)
-  set metadata($1.Struct v) { setField(7, v); }
-  @$pb.TagNumber(7)
-  $core.bool hasMetadata() => $_has(6);
-  @$pb.TagNumber(7)
-  void clearMetadata() => clearField(7);
-  @$pb.TagNumber(7)
-  $1.Struct ensureMetadata() => $_ensure(6);
+  $core.List<$core.String> get tags => $_getList(6);
 
   @$pb.TagNumber(8)
-  $core.bool get learned => $_getBF(7);
+  $1.Struct get metadata => $_getN(7);
   @$pb.TagNumber(8)
-  set learned($core.bool v) { $_setBool(7, v); }
+  set metadata($1.Struct v) { setField(8, v); }
   @$pb.TagNumber(8)
-  $core.bool hasLearned() => $_has(7);
+  $core.bool hasMetadata() => $_has(7);
   @$pb.TagNumber(8)
-  void clearLearned() => clearField(8);
+  void clearMetadata() => clearField(8);
+  @$pb.TagNumber(8)
+  $1.Struct ensureMetadata() => $_ensure(7);
+
+  @$pb.TagNumber(9)
+  $core.bool get learned => $_getBF(8);
+  @$pb.TagNumber(9)
+  set learned($core.bool v) { $_setBool(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasLearned() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearLearned() => clearField(9);
 }
 
 class Live extends $pb.GeneratedMessage {

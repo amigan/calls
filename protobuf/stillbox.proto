@@ -58,10 +58,11 @@ message TalkgroupInfo {
   string system_name = 2;
   optional string name = 3;
   optional string group = 4;
-  optional int32 frequency = 5;
-  repeated string tags = 6;
-  optional google.protobuf.Struct metadata = 7;
-  bool learned = 8;
+  optional string alpha_tag = 5;
+  optional int32 frequency = 6;
+  repeated string tags = 7;
+  optional google.protobuf.Struct metadata = 8;
+  bool learned = 9;
 }
 
 enum LiveState {
