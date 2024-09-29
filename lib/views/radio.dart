@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:just_audio/just_audio.dart';
 import '../../views/lcd.dart';
 import '../../views/keypad.dart';
+import '../../views/login.dart';
 import '../controller/stillbox.dart';
 import 'play.dart';
 
@@ -53,8 +54,23 @@ class _MainRadioState extends State<MainRadio> {
     _callLoop(sb);
   }
 
+  void _handleSocketError(dynamic error) {
+    Navigator.pushReplacement(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => const Login(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return child;
+        },
+        transitionDuration: const Duration(milliseconds: 0),
+      ),
+    );
+  }
+
   void _callLoop(Stillbox sb) async {
-    await for (final call in sb.callStream.stream) {
+    var streamWithoutErrors =
+        sb.callStream.stream.handleError((error) => _handleSocketError(error));
+    await for (final call in streamWithoutErrors) {
       lcdOn();
       setState(() {
         _call = call;

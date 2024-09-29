@@ -85,12 +85,12 @@ class Stillbox extends ChangeNotifier {
     if (connected == true) {
       return;
     }
+    channel.stream.listen((event) => _handleData(event),
+        onDone: () {
+          connected = false;
+        },
+        onError: (error) => _handleError(error));
     channel.connect(_wsUri);
-    channel.stream.listen((event) => _handleData(event), onDone: () {
-      connected = false;
-    }, onError: (error) {
-      print(error);
-    });
     connected = true;
     tgCache = TalkgroupCache(channel);
     notifyListeners();
@@ -113,6 +113,12 @@ class Stillbox extends ChangeNotifier {
   void dispatchCall(SBCall call) {
     callStream.add(call);
     callQStream.add(1);
+  }
+
+  void _handleError(dynamic error) {
+    connected = false;
+    print(error);
+    callStream.addError(error);
   }
 
   void _handleData(dynamic event) {

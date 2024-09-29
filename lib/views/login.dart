@@ -98,7 +98,6 @@ class _LoginState extends State<Login> {
                                     uriController.text,
                                     userController.text,
                                     passwordController.text);
-                            print("result is $result");
                             if (context.mounted && result == true) {
                               Navigator.pushReplacement(
                                 context,
