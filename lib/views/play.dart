@@ -7,11 +7,12 @@ import 'audio_none.dart'
 import '../pb/stillbox.pb.dart';
 
 class JustAudioDriver {
-  final player = justaudio.AudioPlayer();
   final initializer = AudioInitializer();
+  late justaudio.AudioPlayer player;
 
   JustAudioDriver() {
     initializer.audioInit();
+    player = initializer.player;
   }
 
   Stream<justaudio.PlayerState> get playerStateStream {

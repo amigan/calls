@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:audio_session/audio_session.dart';
 import '../../views/lcd.dart';
 import '../../views/keypad.dart';
 import '../../views/login.dart';
@@ -32,10 +33,17 @@ class _MainRadioState extends State<MainRadio> {
   int queueLen = 0;
   DateFormat timeFormat = DateFormat('HH:mm');
 
+  void _setupAudioSession() async {
+    final session = await AudioSession.instance;
+    await session.configure(AudioSessionConfiguration.music());
+  }
+
   @override
   void initState() {
     super.initState();
+    _setupAudioSession();
     final sb = Provider.of<Stillbox>(context, listen: false);
+
     player.player.playerStateStream.listen((event) async {
       if (event.processingState == ProcessingState.completed &&
           !_completer.isCompleted) {
