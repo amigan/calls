@@ -1,14 +1,14 @@
-import 'dart:html';
+import 'package:web/web.dart' as web;
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:http/http.dart' as http;
 
 class Storer {
   Future<String?> getKey(String key) async {
-    return window.localStorage[key];
+    return web.window.localStorage[key];
   }
 
   Future<void> setKey(String key, String value) async {
-    window.localStorage[key] = value;
+    web.window.localStorage[key] = value;
   }
 }
 
