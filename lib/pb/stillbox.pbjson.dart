@@ -33,10 +33,11 @@ const Message$json = {
   '1': 'Message',
   '2': [
     {'1': 'call', '3': 1, '4': 1, '5': 11, '6': '.stillbox.Call', '9': 0, '10': 'call'},
-    {'1': 'tgInfo', '3': 2, '4': 1, '5': 11, '6': '.stillbox.TalkgroupInfo', '9': 0, '10': 'tgInfo'},
+    {'1': 'tg_info', '3': 2, '4': 1, '5': 11, '6': '.stillbox.TalkgroupInfo', '9': 0, '10': 'tgInfo'},
     {'1': 'notification', '3': 3, '4': 1, '5': 11, '6': '.stillbox.Notification', '9': 0, '10': 'notification'},
     {'1': 'popup', '3': 4, '4': 1, '5': 11, '6': '.stillbox.UserPopup', '9': 0, '10': 'popup'},
     {'1': 'error', '3': 5, '4': 1, '5': 11, '6': '.stillbox.Error', '9': 0, '10': 'error'},
+    {'1': 'hello', '3': 6, '4': 1, '5': 11, '6': '.stillbox.Hello', '9': 0, '10': 'hello'},
   ],
   '8': [
     {'1': 'toClient_message'},
@@ -45,11 +46,12 @@ const Message$json = {
 
 /// Descriptor for `Message`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List messageDescriptor = $convert.base64Decode(
-    'CgdNZXNzYWdlEiQKBGNhbGwYASABKAsyDi5zdGlsbGJveC5DYWxsSABSBGNhbGwSMQoGdGdJbm'
-    'ZvGAIgASgLMhcuc3RpbGxib3guVGFsa2dyb3VwSW5mb0gAUgZ0Z0luZm8SPAoMbm90aWZpY2F0'
-    'aW9uGAMgASgLMhYuc3RpbGxib3guTm90aWZpY2F0aW9uSABSDG5vdGlmaWNhdGlvbhIrCgVwb3'
-    'B1cBgEIAEoCzITLnN0aWxsYm94LlVzZXJQb3B1cEgAUgVwb3B1cBInCgVlcnJvchgFIAEoCzIP'
-    'LnN0aWxsYm94LkVycm9ySABSBWVycm9yQhIKEHRvQ2xpZW50X21lc3NhZ2U=');
+    'CgdNZXNzYWdlEiQKBGNhbGwYASABKAsyDi5zdGlsbGJveC5DYWxsSABSBGNhbGwSMgoHdGdfaW'
+    '5mbxgCIAEoCzIXLnN0aWxsYm94LlRhbGtncm91cEluZm9IAFIGdGdJbmZvEjwKDG5vdGlmaWNh'
+    'dGlvbhgDIAEoCzIWLnN0aWxsYm94Lk5vdGlmaWNhdGlvbkgAUgxub3RpZmljYXRpb24SKwoFcG'
+    '9wdXAYBCABKAsyEy5zdGlsbGJveC5Vc2VyUG9wdXBIAFIFcG9wdXASJwoFZXJyb3IYBSABKAsy'
+    'Dy5zdGlsbGJveC5FcnJvckgAUgVlcnJvchInCgVoZWxsbxgGIAEoCzIPLnN0aWxsYm94LkhlbG'
+    'xvSABSBWhlbGxvQhIKEHRvQ2xpZW50X21lc3NhZ2U=');
 
 @$core.Deprecated('Use callDescriptor instead')
 const Call$json = {
@@ -57,7 +59,7 @@ const Call$json = {
   '2': [
     {'1': 'audioName', '3': 1, '4': 1, '5': 9, '10': 'audioName'},
     {'1': 'audioType', '3': 2, '4': 1, '5': 9, '10': 'audioType'},
-    {'1': 'dateTime', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'dateTime'},
+    {'1': 'date_time', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'dateTime'},
     {'1': 'system', '3': 4, '4': 1, '5': 5, '10': 'system'},
     {'1': 'talkgroup', '3': 5, '4': 1, '5': 5, '10': 'talkgroup'},
     {'1': 'source', '3': 6, '4': 1, '5': 5, '10': 'source'},
@@ -76,12 +78,24 @@ const Call$json = {
 /// Descriptor for `Call`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List callDescriptor = $convert.base64Decode(
     'CgRDYWxsEhwKCWF1ZGlvTmFtZRgBIAEoCVIJYXVkaW9OYW1lEhwKCWF1ZGlvVHlwZRgCIAEoCV'
-    'IJYXVkaW9UeXBlEjYKCGRhdGVUaW1lGAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFt'
-    'cFIIZGF0ZVRpbWUSFgoGc3lzdGVtGAQgASgFUgZzeXN0ZW0SHAoJdGFsa2dyb3VwGAUgASgFUg'
-    'l0YWxrZ3JvdXASFgoGc291cmNlGAYgASgFUgZzb3VyY2USHAoJZnJlcXVlbmN5GAcgASgDUglm'
-    'cmVxdWVuY3kSIAoLZnJlcXVlbmNpZXMYCCADKANSC2ZyZXF1ZW5jaWVzEhgKB3BhdGNoZXMYCS'
-    'ADKAVSB3BhdGNoZXMSGAoHc291cmNlcxgKIAMoBVIHc291cmNlcxIfCghkdXJhdGlvbhgLIAEo'
-    'BUgAUghkdXJhdGlvbogBARIUCgVhdWRpbxgMIAEoDFIFYXVkaW9CCwoJX2R1cmF0aW9u');
+    'IJYXVkaW9UeXBlEjcKCWRhdGVfdGltZRgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3Rh'
+    'bXBSCGRhdGVUaW1lEhYKBnN5c3RlbRgEIAEoBVIGc3lzdGVtEhwKCXRhbGtncm91cBgFIAEoBV'
+    'IJdGFsa2dyb3VwEhYKBnNvdXJjZRgGIAEoBVIGc291cmNlEhwKCWZyZXF1ZW5jeRgHIAEoA1IJ'
+    'ZnJlcXVlbmN5EiAKC2ZyZXF1ZW5jaWVzGAggAygDUgtmcmVxdWVuY2llcxIYCgdwYXRjaGVzGA'
+    'kgAygFUgdwYXRjaGVzEhgKB3NvdXJjZXMYCiADKAVSB3NvdXJjZXMSHwoIZHVyYXRpb24YCyAB'
+    'KAVIAFIIZHVyYXRpb26IAQESFAoFYXVkaW8YDCABKAxSBWF1ZGlvQgsKCV9kdXJhdGlvbg==');
+
+@$core.Deprecated('Use helloDescriptor instead')
+const Hello$json = {
+  '1': 'Hello',
+  '2': [
+    {'1': 'version', '3': 1, '4': 1, '5': 11, '6': '.stillbox.Version', '10': 'version'},
+  ],
+};
+
+/// Descriptor for `Hello`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List helloDescriptor = $convert.base64Decode(
+    'CgVIZWxsbxIrCgd2ZXJzaW9uGAEgASgLMhEuc3RpbGxib3guVmVyc2lvblIHdmVyc2lvbg==');
 
 @$core.Deprecated('Use userPopupDescriptor instead')
 const UserPopup$json = {
@@ -113,25 +127,25 @@ final $typed_data.Uint8List errorDescriptor = $convert.base64Decode(
 const Notification$json = {
   '1': 'Notification',
   '2': [
-    {'1': 'dateTime', '3': 1, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'dateTime'},
+    {'1': 'date_time', '3': 1, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'dateTime'},
     {'1': 'msg', '3': 2, '4': 1, '5': 9, '10': 'msg'},
-    {'1': 'actionUrl', '3': 3, '4': 1, '5': 9, '10': 'actionUrl'},
+    {'1': 'action_url', '3': 3, '4': 1, '5': 9, '10': 'actionUrl'},
   ],
 };
 
 /// Descriptor for `Notification`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List notificationDescriptor = $convert.base64Decode(
-    'CgxOb3RpZmljYXRpb24SNgoIZGF0ZVRpbWUYASABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZX'
-    'N0YW1wUghkYXRlVGltZRIQCgNtc2cYAiABKAlSA21zZxIcCglhY3Rpb25VcmwYAyABKAlSCWFj'
-    'dGlvblVybA==');
+    'CgxOb3RpZmljYXRpb24SNwoJZGF0ZV90aW1lGAEgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbW'
+    'VzdGFtcFIIZGF0ZVRpbWUSEAoDbXNnGAIgASgJUgNtc2cSHQoKYWN0aW9uX3VybBgDIAEoCVIJ'
+    'YWN0aW9uVXJs');
 
 @$core.Deprecated('Use commandDescriptor instead')
 const Command$json = {
   '1': 'Command',
   '2': [
-    {'1': 'liveCommand', '3': 1, '4': 1, '5': 11, '6': '.stillbox.Live', '9': 0, '10': 'liveCommand'},
-    {'1': 'searchCommand', '3': 2, '4': 1, '5': 11, '6': '.stillbox.Search', '9': 0, '10': 'searchCommand'},
-    {'1': 'tgCommand', '3': 3, '4': 1, '5': 11, '6': '.stillbox.Talkgroup', '9': 0, '10': 'tgCommand'},
+    {'1': 'live_command', '3': 1, '4': 1, '5': 11, '6': '.stillbox.Live', '9': 0, '10': 'liveCommand'},
+    {'1': 'search_command', '3': 2, '4': 1, '5': 11, '6': '.stillbox.Search', '9': 0, '10': 'searchCommand'},
+    {'1': 'tg_command', '3': 3, '4': 1, '5': 11, '6': '.stillbox.Talkgroup', '9': 0, '10': 'tgCommand'},
   ],
   '8': [
     {'1': 'command'},
@@ -140,10 +154,10 @@ const Command$json = {
 
 /// Descriptor for `Command`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List commandDescriptor = $convert.base64Decode(
-    'CgdDb21tYW5kEjIKC2xpdmVDb21tYW5kGAEgASgLMg4uc3RpbGxib3guTGl2ZUgAUgtsaXZlQ2'
-    '9tbWFuZBI4Cg1zZWFyY2hDb21tYW5kGAIgASgLMhAuc3RpbGxib3guU2VhcmNoSABSDXNlYXJj'
-    'aENvbW1hbmQSMwoJdGdDb21tYW5kGAMgASgLMhMuc3RpbGxib3guVGFsa2dyb3VwSABSCXRnQ2'
-    '9tbWFuZEIJCgdjb21tYW5k');
+    'CgdDb21tYW5kEjMKDGxpdmVfY29tbWFuZBgBIAEoCzIOLnN0aWxsYm94LkxpdmVIAFILbGl2ZU'
+    'NvbW1hbmQSOQoOc2VhcmNoX2NvbW1hbmQYAiABKAsyEC5zdGlsbGJveC5TZWFyY2hIAFINc2Vh'
+    'cmNoQ29tbWFuZBI0Cgp0Z19jb21tYW5kGAMgASgLMhMuc3RpbGxib3guVGFsa2dyb3VwSABSCX'
+    'RnQ29tbWFuZEIJCgdjb21tYW5k');
 
 @$core.Deprecated('Use talkgroupInfoDescriptor instead')
 const TalkgroupInfo$json = {
@@ -239,4 +253,21 @@ const Search$json = {
 /// Descriptor for `Search`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List searchDescriptor = $convert.base64Decode(
     'CgZTZWFyY2g=');
+
+@$core.Deprecated('Use versionDescriptor instead')
+const Version$json = {
+  '1': 'Version',
+  '2': [
+    {'1': 'server_name', '3': 1, '4': 1, '5': 9, '10': 'serverName'},
+    {'1': 'version', '3': 2, '4': 1, '5': 9, '10': 'version'},
+    {'1': 'built', '3': 3, '4': 1, '5': 9, '10': 'built'},
+    {'1': 'platform', '3': 4, '4': 1, '5': 9, '10': 'platform'},
+  ],
+};
+
+/// Descriptor for `Version`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List versionDescriptor = $convert.base64Decode(
+    'CgdWZXJzaW9uEh8KC3NlcnZlcl9uYW1lGAEgASgJUgpzZXJ2ZXJOYW1lEhgKB3ZlcnNpb24YAi'
+    'ABKAlSB3ZlcnNpb24SFAoFYnVpbHQYAyABKAlSBWJ1aWx0EhoKCHBsYXRmb3JtGAQgASgJUghw'
+    'bGF0Zm9ybQ==');
 

@@ -8,17 +8,18 @@ import "google/protobuf/struct.proto";
 message Message {
   oneof toClient_message {
     Call call = 1;
-    TalkgroupInfo tgInfo = 2;
+    TalkgroupInfo tg_info = 2;
     Notification notification = 3;
     UserPopup popup = 4;
     Error error = 5;
+    Hello hello = 6;
   }
 }
 
 message Call {
   string audioName = 1;
   string audioType = 2;
-  google.protobuf.Timestamp dateTime = 3;
+  google.protobuf.Timestamp date_time = 3;
   int32 system = 4;
   int32 talkgroup = 5;
   int32 source = 6;
@@ -28,6 +29,10 @@ message Call {
   repeated int32 sources = 10;
   optional int32 duration = 11;
   bytes audio = 12;
+}
+
+message Hello {
+  Version version = 1;
 }
 
 message UserPopup {
@@ -40,16 +45,16 @@ message Error {
 }
 
 message Notification {
-  google.protobuf.Timestamp dateTime = 1;
+  google.protobuf.Timestamp date_time = 1;
   string msg = 2;
-  string actionUrl = 3;
+  string action_url = 3;
 }
 
 message Command {
   oneof command {
-    Live liveCommand = 1;
-    Search searchCommand = 2;
-    Talkgroup tgCommand = 3;
+    Live live_command = 1;
+    Search search_command = 2;
+    Talkgroup tg_command = 3;
   }
 }
 
@@ -90,4 +95,11 @@ message Filter {
 }
 
 message Search {
+}
+
+message Version {
+  string server_name = 1;
+  string version = 2;
+  string built = 3;
+  string platform = 4;
 }

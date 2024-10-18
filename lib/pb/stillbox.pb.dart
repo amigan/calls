@@ -26,6 +26,7 @@ enum Message_ToClientMessage {
   notification, 
   popup, 
   error, 
+  hello, 
   notSet
 }
 
@@ -36,6 +37,7 @@ class Message extends $pb.GeneratedMessage {
     Notification? notification,
     UserPopup? popup,
     Error? error,
+    Hello? hello,
   }) {
     final $result = create();
     if (call != null) {
@@ -53,6 +55,9 @@ class Message extends $pb.GeneratedMessage {
     if (error != null) {
       $result.error = error;
     }
+    if (hello != null) {
+      $result.hello = hello;
+    }
     return $result;
   }
   Message._() : super();
@@ -65,15 +70,17 @@ class Message extends $pb.GeneratedMessage {
     3 : Message_ToClientMessage.notification,
     4 : Message_ToClientMessage.popup,
     5 : Message_ToClientMessage.error,
+    6 : Message_ToClientMessage.hello,
     0 : Message_ToClientMessage.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Message', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
-    ..oo(0, [1, 2, 3, 4, 5])
+    ..oo(0, [1, 2, 3, 4, 5, 6])
     ..aOM<Call>(1, _omitFieldNames ? '' : 'call', subBuilder: Call.create)
-    ..aOM<TalkgroupInfo>(2, _omitFieldNames ? '' : 'tgInfo', protoName: 'tgInfo', subBuilder: TalkgroupInfo.create)
+    ..aOM<TalkgroupInfo>(2, _omitFieldNames ? '' : 'tgInfo', subBuilder: TalkgroupInfo.create)
     ..aOM<Notification>(3, _omitFieldNames ? '' : 'notification', subBuilder: Notification.create)
     ..aOM<UserPopup>(4, _omitFieldNames ? '' : 'popup', subBuilder: UserPopup.create)
     ..aOM<Error>(5, _omitFieldNames ? '' : 'error', subBuilder: Error.create)
+    ..aOM<Hello>(6, _omitFieldNames ? '' : 'hello', subBuilder: Hello.create)
     ..hasRequiredFields = false
   ;
 
@@ -155,6 +162,17 @@ class Message extends $pb.GeneratedMessage {
   void clearError() => clearField(5);
   @$pb.TagNumber(5)
   Error ensureError() => $_ensure(4);
+
+  @$pb.TagNumber(6)
+  Hello get hello => $_getN(5);
+  @$pb.TagNumber(6)
+  set hello(Hello v) { setField(6, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasHello() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearHello() => clearField(6);
+  @$pb.TagNumber(6)
+  Hello ensureHello() => $_ensure(5);
 }
 
 class Call extends $pb.GeneratedMessage {
@@ -218,7 +236,7 @@ class Call extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Call', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'audioName', protoName: 'audioName')
     ..aOS(2, _omitFieldNames ? '' : 'audioType', protoName: 'audioType')
-    ..aOM<$0.Timestamp>(3, _omitFieldNames ? '' : 'dateTime', protoName: 'dateTime', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(3, _omitFieldNames ? '' : 'dateTime', subBuilder: $0.Timestamp.create)
     ..a<$core.int>(4, _omitFieldNames ? '' : 'system', $pb.PbFieldType.O3)
     ..a<$core.int>(5, _omitFieldNames ? '' : 'talkgroup', $pb.PbFieldType.O3)
     ..a<$core.int>(6, _omitFieldNames ? '' : 'source', $pb.PbFieldType.O3)
@@ -343,6 +361,58 @@ class Call extends $pb.GeneratedMessage {
   $core.bool hasAudio() => $_has(11);
   @$pb.TagNumber(12)
   void clearAudio() => clearField(12);
+}
+
+class Hello extends $pb.GeneratedMessage {
+  factory Hello({
+    Version? version,
+  }) {
+    final $result = create();
+    if (version != null) {
+      $result.version = version;
+    }
+    return $result;
+  }
+  Hello._() : super();
+  factory Hello.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Hello.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Hello', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
+    ..aOM<Version>(1, _omitFieldNames ? '' : 'version', subBuilder: Version.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Hello clone() => Hello()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Hello copyWith(void Function(Hello) updates) => super.copyWith((message) => updates(message as Hello)) as Hello;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Hello create() => Hello._();
+  Hello createEmptyInstance() => create();
+  static $pb.PbList<Hello> createRepeated() => $pb.PbList<Hello>();
+  @$core.pragma('dart2js:noInline')
+  static Hello getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Hello>(create);
+  static Hello? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Version get version => $_getN(0);
+  @$pb.TagNumber(1)
+  set version(Version v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasVersion() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearVersion() => clearField(1);
+  @$pb.TagNumber(1)
+  Version ensureVersion() => $_ensure(0);
 }
 
 class UserPopup extends $pb.GeneratedMessage {
@@ -484,9 +554,9 @@ class Notification extends $pb.GeneratedMessage {
   factory Notification.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Notification', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
-    ..aOM<$0.Timestamp>(1, _omitFieldNames ? '' : 'dateTime', protoName: 'dateTime', subBuilder: $0.Timestamp.create)
+    ..aOM<$0.Timestamp>(1, _omitFieldNames ? '' : 'dateTime', subBuilder: $0.Timestamp.create)
     ..aOS(2, _omitFieldNames ? '' : 'msg')
-    ..aOS(3, _omitFieldNames ? '' : 'actionUrl', protoName: 'actionUrl')
+    ..aOS(3, _omitFieldNames ? '' : 'actionUrl')
     ..hasRequiredFields = false
   ;
 
@@ -578,9 +648,9 @@ class Command extends $pb.GeneratedMessage {
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Command', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
     ..oo(0, [1, 2, 3])
-    ..aOM<Live>(1, _omitFieldNames ? '' : 'liveCommand', protoName: 'liveCommand', subBuilder: Live.create)
-    ..aOM<Search>(2, _omitFieldNames ? '' : 'searchCommand', protoName: 'searchCommand', subBuilder: Search.create)
-    ..aOM<Talkgroup>(3, _omitFieldNames ? '' : 'tgCommand', protoName: 'tgCommand', subBuilder: Talkgroup.create)
+    ..aOM<Live>(1, _omitFieldNames ? '' : 'liveCommand', subBuilder: Live.create)
+    ..aOM<Search>(2, _omitFieldNames ? '' : 'searchCommand', subBuilder: Search.create)
+    ..aOM<Talkgroup>(3, _omitFieldNames ? '' : 'tgCommand', subBuilder: Talkgroup.create)
     ..hasRequiredFields = false
   ;
 
@@ -1038,6 +1108,98 @@ class Search extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static Search getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Search>(create);
   static Search? _defaultInstance;
+}
+
+class Version extends $pb.GeneratedMessage {
+  factory Version({
+    $core.String? serverName,
+    $core.String? version,
+    $core.String? built,
+    $core.String? platform,
+  }) {
+    final $result = create();
+    if (serverName != null) {
+      $result.serverName = serverName;
+    }
+    if (version != null) {
+      $result.version = version;
+    }
+    if (built != null) {
+      $result.built = built;
+    }
+    if (platform != null) {
+      $result.platform = platform;
+    }
+    return $result;
+  }
+  Version._() : super();
+  factory Version.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Version.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Version', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'serverName')
+    ..aOS(2, _omitFieldNames ? '' : 'version')
+    ..aOS(3, _omitFieldNames ? '' : 'built')
+    ..aOS(4, _omitFieldNames ? '' : 'platform')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Version clone() => Version()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Version copyWith(void Function(Version) updates) => super.copyWith((message) => updates(message as Version)) as Version;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Version create() => Version._();
+  Version createEmptyInstance() => create();
+  static $pb.PbList<Version> createRepeated() => $pb.PbList<Version>();
+  @$core.pragma('dart2js:noInline')
+  static Version getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Version>(create);
+  static Version? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get serverName => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set serverName($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasServerName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearServerName() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get version => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set version($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasVersion() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearVersion() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get built => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set built($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasBuilt() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearBuilt() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get platform => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set platform($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasPlatform() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearPlatform() => clearField(4);
 }
 
 

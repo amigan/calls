@@ -14,6 +14,7 @@ class Stillbox extends ChangeNotifier {
   final storage = Storer();
   final channel = Socketer();
   late TalkgroupCache tgCache;
+  late Version version;
   bool connected = false;
   late Uri _wsUri;
   LiveState _state = LiveState.LS_LIVE;
@@ -132,6 +133,8 @@ class Stillbox extends ChangeNotifier {
       case Message_ToClientMessage.error:
       case Message_ToClientMessage.tgInfo:
         tgCache.handleTgInfo(msg.tgInfo);
+      case Message_ToClientMessage.hello:
+        version = msg.hello.version;
       default:
     }
   }
