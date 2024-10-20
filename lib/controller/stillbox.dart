@@ -131,10 +131,11 @@ class Stillbox extends ChangeNotifier {
       case Message_ToClientMessage.notification:
       case Message_ToClientMessage.popup:
       case Message_ToClientMessage.error:
-      case Message_ToClientMessage.tgInfo:
-        tgCache.handleTgInfo(msg.tgInfo);
       case Message_ToClientMessage.hello:
         version = msg.hello.version;
+      case Message_ToClientMessage.response:
+        final response = msg.response;
+        tgCache.handleTgInfo(response.tgInfo);
       default:
     }
   }

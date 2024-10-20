@@ -6,6 +6,20 @@ class Keypad extends StatefulWidget {
   @override
   State<Keypad> createState() => _KeypadState();
 }
+/*
+class KeypadKey extends ElevatedButton {
+  @override
+  ButtonStyle? themeStyleOf(BuildContext context) {
+    return ElevatedButtonTheme(
+      data: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          shape: BoxBorder()
+        )
+      ),
+    );
+  }
+}
+*/
 
 class _KeypadState extends State<Keypad> {
   @override

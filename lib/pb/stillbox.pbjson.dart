@@ -32,8 +32,8 @@ final $typed_data.Uint8List liveStateDescriptor = $convert.base64Decode(
 const Message$json = {
   '1': 'Message',
   '2': [
-    {'1': 'call', '3': 1, '4': 1, '5': 11, '6': '.stillbox.Call', '9': 0, '10': 'call'},
-    {'1': 'tg_info', '3': 2, '4': 1, '5': 11, '6': '.stillbox.TalkgroupInfo', '9': 0, '10': 'tgInfo'},
+    {'1': 'response', '3': 1, '4': 1, '5': 11, '6': '.stillbox.CommandResponse', '9': 0, '10': 'response'},
+    {'1': 'call', '3': 2, '4': 1, '5': 11, '6': '.stillbox.Call', '9': 0, '10': 'call'},
     {'1': 'notification', '3': 3, '4': 1, '5': 11, '6': '.stillbox.Notification', '9': 0, '10': 'notification'},
     {'1': 'popup', '3': 4, '4': 1, '5': 11, '6': '.stillbox.UserPopup', '9': 0, '10': 'popup'},
     {'1': 'error', '3': 5, '4': 1, '5': 11, '6': '.stillbox.Error', '9': 0, '10': 'error'},
@@ -46,12 +46,31 @@ const Message$json = {
 
 /// Descriptor for `Message`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List messageDescriptor = $convert.base64Decode(
-    'CgdNZXNzYWdlEiQKBGNhbGwYASABKAsyDi5zdGlsbGJveC5DYWxsSABSBGNhbGwSMgoHdGdfaW'
-    '5mbxgCIAEoCzIXLnN0aWxsYm94LlRhbGtncm91cEluZm9IAFIGdGdJbmZvEjwKDG5vdGlmaWNh'
-    'dGlvbhgDIAEoCzIWLnN0aWxsYm94Lk5vdGlmaWNhdGlvbkgAUgxub3RpZmljYXRpb24SKwoFcG'
-    '9wdXAYBCABKAsyEy5zdGlsbGJveC5Vc2VyUG9wdXBIAFIFcG9wdXASJwoFZXJyb3IYBSABKAsy'
-    'Dy5zdGlsbGJveC5FcnJvckgAUgVlcnJvchInCgVoZWxsbxgGIAEoCzIPLnN0aWxsYm94LkhlbG'
-    'xvSABSBWhlbGxvQhIKEHRvQ2xpZW50X21lc3NhZ2U=');
+    'CgdNZXNzYWdlEjcKCHJlc3BvbnNlGAEgASgLMhkuc3RpbGxib3guQ29tbWFuZFJlc3BvbnNlSA'
+    'BSCHJlc3BvbnNlEiQKBGNhbGwYAiABKAsyDi5zdGlsbGJveC5DYWxsSABSBGNhbGwSPAoMbm90'
+    'aWZpY2F0aW9uGAMgASgLMhYuc3RpbGxib3guTm90aWZpY2F0aW9uSABSDG5vdGlmaWNhdGlvbh'
+    'IrCgVwb3B1cBgEIAEoCzITLnN0aWxsYm94LlVzZXJQb3B1cEgAUgVwb3B1cBInCgVlcnJvchgF'
+    'IAEoCzIPLnN0aWxsYm94LkVycm9ySABSBWVycm9yEicKBWhlbGxvGAYgASgLMg8uc3RpbGxib3'
+    'guSGVsbG9IAFIFaGVsbG9CEgoQdG9DbGllbnRfbWVzc2FnZQ==');
+
+@$core.Deprecated('Use commandResponseDescriptor instead')
+const CommandResponse$json = {
+  '1': 'CommandResponse',
+  '2': [
+    {'1': 'command_id', '3': 1, '4': 1, '5': 3, '9': 1, '10': 'commandId', '17': true},
+    {'1': 'tg_info', '3': 2, '4': 1, '5': 11, '6': '.stillbox.TalkgroupInfo', '9': 0, '10': 'tgInfo'},
+  ],
+  '8': [
+    {'1': 'command_response'},
+    {'1': '_command_id'},
+  ],
+};
+
+/// Descriptor for `CommandResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List commandResponseDescriptor = $convert.base64Decode(
+    'Cg9Db21tYW5kUmVzcG9uc2USIgoKY29tbWFuZF9pZBgBIAEoA0gBUgljb21tYW5kSWSIAQESMg'
+    'oHdGdfaW5mbxgCIAEoCzIXLnN0aWxsYm94LlRhbGtncm91cEluZm9IAFIGdGdJbmZvQhIKEGNv'
+    'bW1hbmRfcmVzcG9uc2VCDQoLX2NvbW1hbmRfaWQ=');
 
 @$core.Deprecated('Use callDescriptor instead')
 const Call$json = {
@@ -143,21 +162,24 @@ final $typed_data.Uint8List notificationDescriptor = $convert.base64Decode(
 const Command$json = {
   '1': 'Command',
   '2': [
-    {'1': 'live_command', '3': 1, '4': 1, '5': 11, '6': '.stillbox.Live', '9': 0, '10': 'liveCommand'},
-    {'1': 'search_command', '3': 2, '4': 1, '5': 11, '6': '.stillbox.Search', '9': 0, '10': 'searchCommand'},
-    {'1': 'tg_command', '3': 3, '4': 1, '5': 11, '6': '.stillbox.Talkgroup', '9': 0, '10': 'tgCommand'},
+    {'1': 'command_id', '3': 1, '4': 1, '5': 3, '9': 1, '10': 'commandId', '17': true},
+    {'1': 'live_command', '3': 2, '4': 1, '5': 11, '6': '.stillbox.Live', '9': 0, '10': 'liveCommand'},
+    {'1': 'search_command', '3': 3, '4': 1, '5': 11, '6': '.stillbox.Search', '9': 0, '10': 'searchCommand'},
+    {'1': 'tg_command', '3': 4, '4': 1, '5': 11, '6': '.stillbox.Talkgroup', '9': 0, '10': 'tgCommand'},
   ],
   '8': [
     {'1': 'command'},
+    {'1': '_command_id'},
   ],
 };
 
 /// Descriptor for `Command`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List commandDescriptor = $convert.base64Decode(
-    'CgdDb21tYW5kEjMKDGxpdmVfY29tbWFuZBgBIAEoCzIOLnN0aWxsYm94LkxpdmVIAFILbGl2ZU'
-    'NvbW1hbmQSOQoOc2VhcmNoX2NvbW1hbmQYAiABKAsyEC5zdGlsbGJveC5TZWFyY2hIAFINc2Vh'
-    'cmNoQ29tbWFuZBI0Cgp0Z19jb21tYW5kGAMgASgLMhMuc3RpbGxib3guVGFsa2dyb3VwSABSCX'
-    'RnQ29tbWFuZEIJCgdjb21tYW5k');
+    'CgdDb21tYW5kEiIKCmNvbW1hbmRfaWQYASABKANIAVIJY29tbWFuZElkiAEBEjMKDGxpdmVfY2'
+    '9tbWFuZBgCIAEoCzIOLnN0aWxsYm94LkxpdmVIAFILbGl2ZUNvbW1hbmQSOQoOc2VhcmNoX2Nv'
+    'bW1hbmQYAyABKAsyEC5zdGlsbGJveC5TZWFyY2hIAFINc2VhcmNoQ29tbWFuZBI0Cgp0Z19jb2'
+    '1tYW5kGAQgASgLMhMuc3RpbGxib3guVGFsa2dyb3VwSABSCXRnQ29tbWFuZEIJCgdjb21tYW5k'
+    'Qg0KC19jb21tYW5kX2lk');
 
 @$core.Deprecated('Use talkgroupInfoDescriptor instead')
 const TalkgroupInfo$json = {

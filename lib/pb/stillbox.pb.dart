@@ -21,8 +21,8 @@ import 'stillbox.pbenum.dart';
 export 'stillbox.pbenum.dart';
 
 enum Message_ToClientMessage {
+  response, 
   call, 
-  tgInfo, 
   notification, 
   popup, 
   error, 
@@ -32,19 +32,19 @@ enum Message_ToClientMessage {
 
 class Message extends $pb.GeneratedMessage {
   factory Message({
+    CommandResponse? response,
     Call? call,
-    TalkgroupInfo? tgInfo,
     Notification? notification,
     UserPopup? popup,
     Error? error,
     Hello? hello,
   }) {
     final $result = create();
+    if (response != null) {
+      $result.response = response;
+    }
     if (call != null) {
       $result.call = call;
-    }
-    if (tgInfo != null) {
-      $result.tgInfo = tgInfo;
     }
     if (notification != null) {
       $result.notification = notification;
@@ -65,8 +65,8 @@ class Message extends $pb.GeneratedMessage {
   factory Message.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static const $core.Map<$core.int, Message_ToClientMessage> _Message_ToClientMessageByTag = {
-    1 : Message_ToClientMessage.call,
-    2 : Message_ToClientMessage.tgInfo,
+    1 : Message_ToClientMessage.response,
+    2 : Message_ToClientMessage.call,
     3 : Message_ToClientMessage.notification,
     4 : Message_ToClientMessage.popup,
     5 : Message_ToClientMessage.error,
@@ -75,8 +75,8 @@ class Message extends $pb.GeneratedMessage {
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Message', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
     ..oo(0, [1, 2, 3, 4, 5, 6])
-    ..aOM<Call>(1, _omitFieldNames ? '' : 'call', subBuilder: Call.create)
-    ..aOM<TalkgroupInfo>(2, _omitFieldNames ? '' : 'tgInfo', subBuilder: TalkgroupInfo.create)
+    ..aOM<CommandResponse>(1, _omitFieldNames ? '' : 'response', subBuilder: CommandResponse.create)
+    ..aOM<Call>(2, _omitFieldNames ? '' : 'call', subBuilder: Call.create)
     ..aOM<Notification>(3, _omitFieldNames ? '' : 'notification', subBuilder: Notification.create)
     ..aOM<UserPopup>(4, _omitFieldNames ? '' : 'popup', subBuilder: UserPopup.create)
     ..aOM<Error>(5, _omitFieldNames ? '' : 'error', subBuilder: Error.create)
@@ -109,26 +109,26 @@ class Message extends $pb.GeneratedMessage {
   void clearToClientMessage() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
-  Call get call => $_getN(0);
+  CommandResponse get response => $_getN(0);
   @$pb.TagNumber(1)
-  set call(Call v) { setField(1, v); }
+  set response(CommandResponse v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasCall() => $_has(0);
+  $core.bool hasResponse() => $_has(0);
   @$pb.TagNumber(1)
-  void clearCall() => clearField(1);
+  void clearResponse() => clearField(1);
   @$pb.TagNumber(1)
-  Call ensureCall() => $_ensure(0);
+  CommandResponse ensureResponse() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  TalkgroupInfo get tgInfo => $_getN(1);
+  Call get call => $_getN(1);
   @$pb.TagNumber(2)
-  set tgInfo(TalkgroupInfo v) { setField(2, v); }
+  set call(Call v) { setField(2, v); }
   @$pb.TagNumber(2)
-  $core.bool hasTgInfo() => $_has(1);
+  $core.bool hasCall() => $_has(1);
   @$pb.TagNumber(2)
-  void clearTgInfo() => clearField(2);
+  void clearCall() => clearField(2);
   @$pb.TagNumber(2)
-  TalkgroupInfo ensureTgInfo() => $_ensure(1);
+  Call ensureCall() => $_ensure(1);
 
   @$pb.TagNumber(3)
   Notification get notification => $_getN(2);
@@ -173,6 +173,85 @@ class Message extends $pb.GeneratedMessage {
   void clearHello() => clearField(6);
   @$pb.TagNumber(6)
   Hello ensureHello() => $_ensure(5);
+}
+
+enum CommandResponse_CommandResponse {
+  tgInfo, 
+  notSet
+}
+
+class CommandResponse extends $pb.GeneratedMessage {
+  factory CommandResponse({
+    $fixnum.Int64? commandId,
+    TalkgroupInfo? tgInfo,
+  }) {
+    final $result = create();
+    if (commandId != null) {
+      $result.commandId = commandId;
+    }
+    if (tgInfo != null) {
+      $result.tgInfo = tgInfo;
+    }
+    return $result;
+  }
+  CommandResponse._() : super();
+  factory CommandResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CommandResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static const $core.Map<$core.int, CommandResponse_CommandResponse> _CommandResponse_CommandResponseByTag = {
+    2 : CommandResponse_CommandResponse.tgInfo,
+    0 : CommandResponse_CommandResponse.notSet
+  };
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CommandResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
+    ..oo(0, [2])
+    ..aInt64(1, _omitFieldNames ? '' : 'commandId')
+    ..aOM<TalkgroupInfo>(2, _omitFieldNames ? '' : 'tgInfo', subBuilder: TalkgroupInfo.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CommandResponse clone() => CommandResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CommandResponse copyWith(void Function(CommandResponse) updates) => super.copyWith((message) => updates(message as CommandResponse)) as CommandResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static CommandResponse create() => CommandResponse._();
+  CommandResponse createEmptyInstance() => create();
+  static $pb.PbList<CommandResponse> createRepeated() => $pb.PbList<CommandResponse>();
+  @$core.pragma('dart2js:noInline')
+  static CommandResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CommandResponse>(create);
+  static CommandResponse? _defaultInstance;
+
+  CommandResponse_CommandResponse whichCommandResponse() => _CommandResponse_CommandResponseByTag[$_whichOneof(0)]!;
+  void clearCommandResponse() => clearField($_whichOneof(0));
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get commandId => $_getI64(0);
+  @$pb.TagNumber(1)
+  set commandId($fixnum.Int64 v) { $_setInt64(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasCommandId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearCommandId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  TalkgroupInfo get tgInfo => $_getN(1);
+  @$pb.TagNumber(2)
+  set tgInfo(TalkgroupInfo v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasTgInfo() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTgInfo() => clearField(2);
+  @$pb.TagNumber(2)
+  TalkgroupInfo ensureTgInfo() => $_ensure(1);
 }
 
 class Call extends $pb.GeneratedMessage {
@@ -620,11 +699,15 @@ enum Command_Command {
 
 class Command extends $pb.GeneratedMessage {
   factory Command({
+    $fixnum.Int64? commandId,
     Live? liveCommand,
     Search? searchCommand,
     Talkgroup? tgCommand,
   }) {
     final $result = create();
+    if (commandId != null) {
+      $result.commandId = commandId;
+    }
     if (liveCommand != null) {
       $result.liveCommand = liveCommand;
     }
@@ -641,16 +724,17 @@ class Command extends $pb.GeneratedMessage {
   factory Command.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static const $core.Map<$core.int, Command_Command> _Command_CommandByTag = {
-    1 : Command_Command.liveCommand,
-    2 : Command_Command.searchCommand,
-    3 : Command_Command.tgCommand,
+    2 : Command_Command.liveCommand,
+    3 : Command_Command.searchCommand,
+    4 : Command_Command.tgCommand,
     0 : Command_Command.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Command', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
-    ..oo(0, [1, 2, 3])
-    ..aOM<Live>(1, _omitFieldNames ? '' : 'liveCommand', subBuilder: Live.create)
-    ..aOM<Search>(2, _omitFieldNames ? '' : 'searchCommand', subBuilder: Search.create)
-    ..aOM<Talkgroup>(3, _omitFieldNames ? '' : 'tgCommand', subBuilder: Talkgroup.create)
+    ..oo(0, [2, 3, 4])
+    ..aInt64(1, _omitFieldNames ? '' : 'commandId')
+    ..aOM<Live>(2, _omitFieldNames ? '' : 'liveCommand', subBuilder: Live.create)
+    ..aOM<Search>(3, _omitFieldNames ? '' : 'searchCommand', subBuilder: Search.create)
+    ..aOM<Talkgroup>(4, _omitFieldNames ? '' : 'tgCommand', subBuilder: Talkgroup.create)
     ..hasRequiredFields = false
   ;
 
@@ -679,37 +763,46 @@ class Command extends $pb.GeneratedMessage {
   void clearCommand() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
-  Live get liveCommand => $_getN(0);
+  $fixnum.Int64 get commandId => $_getI64(0);
   @$pb.TagNumber(1)
-  set liveCommand(Live v) { setField(1, v); }
+  set commandId($fixnum.Int64 v) { $_setInt64(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasLiveCommand() => $_has(0);
+  $core.bool hasCommandId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearLiveCommand() => clearField(1);
-  @$pb.TagNumber(1)
-  Live ensureLiveCommand() => $_ensure(0);
+  void clearCommandId() => clearField(1);
 
   @$pb.TagNumber(2)
-  Search get searchCommand => $_getN(1);
+  Live get liveCommand => $_getN(1);
   @$pb.TagNumber(2)
-  set searchCommand(Search v) { setField(2, v); }
+  set liveCommand(Live v) { setField(2, v); }
   @$pb.TagNumber(2)
-  $core.bool hasSearchCommand() => $_has(1);
+  $core.bool hasLiveCommand() => $_has(1);
   @$pb.TagNumber(2)
-  void clearSearchCommand() => clearField(2);
+  void clearLiveCommand() => clearField(2);
   @$pb.TagNumber(2)
-  Search ensureSearchCommand() => $_ensure(1);
+  Live ensureLiveCommand() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  Talkgroup get tgCommand => $_getN(2);
+  Search get searchCommand => $_getN(2);
   @$pb.TagNumber(3)
-  set tgCommand(Talkgroup v) { setField(3, v); }
+  set searchCommand(Search v) { setField(3, v); }
   @$pb.TagNumber(3)
-  $core.bool hasTgCommand() => $_has(2);
+  $core.bool hasSearchCommand() => $_has(2);
   @$pb.TagNumber(3)
-  void clearTgCommand() => clearField(3);
+  void clearSearchCommand() => clearField(3);
   @$pb.TagNumber(3)
-  Talkgroup ensureTgCommand() => $_ensure(2);
+  Search ensureSearchCommand() => $_ensure(2);
+
+  @$pb.TagNumber(4)
+  Talkgroup get tgCommand => $_getN(3);
+  @$pb.TagNumber(4)
+  set tgCommand(Talkgroup v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasTgCommand() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearTgCommand() => clearField(4);
+  @$pb.TagNumber(4)
+  Talkgroup ensureTgCommand() => $_ensure(3);
 }
 
 class TalkgroupInfo extends $pb.GeneratedMessage {
