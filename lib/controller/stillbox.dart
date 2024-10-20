@@ -134,7 +134,14 @@ class Stillbox extends ChangeNotifier {
       case Message_ToClientMessage.hello:
         version = msg.hello.version;
       case Message_ToClientMessage.response:
-        final response = msg.response;
+        _handleCommandResponse(msg.response);
+      default:
+    }
+  }
+
+  void _handleCommandResponse(CommandResponse response) {
+    switch (response.whichCommandResponse()) {
+      case CommandResponse_CommandResponse.tgInfo:
         tgCache.handleTgInfo(response.tgInfo);
       default:
     }
