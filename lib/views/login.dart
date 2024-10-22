@@ -113,6 +113,11 @@ class _LoginState extends State<Login> {
                                       const Duration(milliseconds: 0),
                                 ),
                               );
+                            } else if (context.mounted) {
+                              // display a snackbar
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Login failed.')),
+                              );
                             }
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(

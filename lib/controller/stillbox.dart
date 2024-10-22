@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:just_audio/just_audio.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 import '../pb/stillbox.pb.dart';
 import 'stillbox_none.dart'
     if (dart.library.io) 'stillbox_io.dart'
@@ -76,8 +79,11 @@ class Stillbox extends ChangeNotifier {
       if (!kIsWeb && token != null) {
         storage.setKey('token', token);
       }
-      await connect();
-      return true;
+      try {
+        await connect();
+      } on WebSocketChannelException catch(e) {
+        return false;
+      }
     }
     return false;
   }
@@ -87,6 +93,11 @@ class Stillbox extends ChangeNotifier {
       return;
     }
     channel.connect(_wsUri);
+    try {
+      await channel.channel?.ready;
+    } on WebSocketChannelException catch(e) {
+      _handleError(e);
+    }
     channel.stream.listen((event) => _handleData(event),
         onDone: () {
           connected = false;

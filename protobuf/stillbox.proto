@@ -39,7 +39,7 @@ message Call {
 }
 
 message Hello {
-  Version version = 1;
+  ServerInfo server_info = 1;
 }
 
 message UserPopup {
@@ -105,9 +105,10 @@ message Filter {
 message Search {
 }
 
-message Version {
+message ServerInfo {
   string server_name = 1;
   string version = 2;
   string built = 3;
   string platform = 4;
+  string db_size = 5;
 }
