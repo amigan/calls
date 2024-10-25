@@ -53,6 +53,7 @@ class _MainRadioState extends State<MainRadio> {
         });
       }
     });
+
     sb.callQStream.stream.listen((ctAdd) {
       setState(() {
         queueLen += ctAdd;
@@ -62,7 +63,7 @@ class _MainRadioState extends State<MainRadio> {
     _callLoop(sb);
   }
 
-  void _handleSocketError(dynamic error) {
+  void _handleSocketError(Exception error) {
     Navigator.pushReplacement(
       context,
       PageRouteBuilder(
@@ -72,6 +73,9 @@ class _MainRadioState extends State<MainRadio> {
         },
         transitionDuration: const Duration(milliseconds: 0),
       ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(error)),
     );
   }
 

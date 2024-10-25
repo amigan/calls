@@ -81,9 +81,11 @@ class Stillbox extends ChangeNotifier {
       }
       try {
         await connect();
-      } on WebSocketChannelException catch(e) {
+      } on WebSocketChannelException catch (e) {
         return false;
       }
+
+      return true;
     }
     return false;
   }
@@ -95,7 +97,7 @@ class Stillbox extends ChangeNotifier {
     channel.connect(_wsUri);
     try {
       await channel.channel?.ready;
-    } on WebSocketChannelException catch(e) {
+    } on WebSocketChannelException catch (e) {
       _handleError(e);
     }
     channel.stream.listen((event) => _handleData(event),
