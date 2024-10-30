@@ -75,7 +75,7 @@ class _MainRadioState extends State<MainRadio> {
       ),
     );
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(error)),
+      SnackBar(content: Text(error.toString())),
     );
   }
 
