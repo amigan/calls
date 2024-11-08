@@ -63,7 +63,7 @@ class _MainRadioState extends State<MainRadio> {
     _callLoop(sb);
   }
 
-  void _handleSocketError(Exception error) {
+  void _handleSocketError(dynamic error) {
     Navigator.pushReplacement(
       context,
       PageRouteBuilder(
