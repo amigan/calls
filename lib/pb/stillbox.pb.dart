@@ -256,6 +256,7 @@ class CommandResponse extends $pb.GeneratedMessage {
 
 class Call extends $pb.GeneratedMessage {
   factory Call({
+    $core.String? id,
     $core.String? audioName,
     $core.String? audioType,
     $0.Timestamp? dateTime,
@@ -270,6 +271,9 @@ class Call extends $pb.GeneratedMessage {
     $core.List<$core.int>? audio,
   }) {
     final $result = create();
+    if (id != null) {
+      $result.id = id;
+    }
     if (audioName != null) {
       $result.audioName = audioName;
     }
@@ -313,18 +317,19 @@ class Call extends $pb.GeneratedMessage {
   factory Call.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Call', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'audioName', protoName: 'audioName')
-    ..aOS(2, _omitFieldNames ? '' : 'audioType', protoName: 'audioType')
-    ..aOM<$0.Timestamp>(3, _omitFieldNames ? '' : 'dateTime', subBuilder: $0.Timestamp.create)
-    ..a<$core.int>(4, _omitFieldNames ? '' : 'system', $pb.PbFieldType.O3)
-    ..a<$core.int>(5, _omitFieldNames ? '' : 'talkgroup', $pb.PbFieldType.O3)
-    ..a<$core.int>(6, _omitFieldNames ? '' : 'source', $pb.PbFieldType.O3)
-    ..aInt64(7, _omitFieldNames ? '' : 'frequency')
-    ..p<$fixnum.Int64>(8, _omitFieldNames ? '' : 'frequencies', $pb.PbFieldType.K6)
-    ..p<$core.int>(9, _omitFieldNames ? '' : 'patches', $pb.PbFieldType.K3)
-    ..p<$core.int>(10, _omitFieldNames ? '' : 'sources', $pb.PbFieldType.K3)
-    ..a<$core.int>(11, _omitFieldNames ? '' : 'duration', $pb.PbFieldType.O3)
-    ..a<$core.List<$core.int>>(12, _omitFieldNames ? '' : 'audio', $pb.PbFieldType.OY)
+    ..aOS(1, _omitFieldNames ? '' : 'id')
+    ..aOS(2, _omitFieldNames ? '' : 'audioName', protoName: 'audioName')
+    ..aOS(3, _omitFieldNames ? '' : 'audioType', protoName: 'audioType')
+    ..aOM<$0.Timestamp>(4, _omitFieldNames ? '' : 'dateTime', subBuilder: $0.Timestamp.create)
+    ..a<$core.int>(5, _omitFieldNames ? '' : 'system', $pb.PbFieldType.O3)
+    ..a<$core.int>(6, _omitFieldNames ? '' : 'talkgroup', $pb.PbFieldType.O3)
+    ..a<$core.int>(7, _omitFieldNames ? '' : 'source', $pb.PbFieldType.O3)
+    ..aInt64(8, _omitFieldNames ? '' : 'frequency')
+    ..p<$fixnum.Int64>(9, _omitFieldNames ? '' : 'frequencies', $pb.PbFieldType.K6)
+    ..p<$core.int>(10, _omitFieldNames ? '' : 'patches', $pb.PbFieldType.K3)
+    ..p<$core.int>(11, _omitFieldNames ? '' : 'sources', $pb.PbFieldType.K3)
+    ..a<$core.int>(12, _omitFieldNames ? '' : 'duration', $pb.PbFieldType.O3)
+    ..a<$core.List<$core.int>>(13, _omitFieldNames ? '' : 'audio', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
@@ -350,105 +355,114 @@ class Call extends $pb.GeneratedMessage {
   static Call? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get audioName => $_getSZ(0);
+  $core.String get id => $_getSZ(0);
   @$pb.TagNumber(1)
-  set audioName($core.String v) { $_setString(0, v); }
+  set id($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasAudioName() => $_has(0);
+  $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearAudioName() => clearField(1);
+  void clearId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get audioType => $_getSZ(1);
+  $core.String get audioName => $_getSZ(1);
   @$pb.TagNumber(2)
-  set audioType($core.String v) { $_setString(1, v); }
+  set audioName($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasAudioType() => $_has(1);
+  $core.bool hasAudioName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearAudioType() => clearField(2);
+  void clearAudioName() => clearField(2);
 
   @$pb.TagNumber(3)
-  $0.Timestamp get dateTime => $_getN(2);
+  $core.String get audioType => $_getSZ(2);
   @$pb.TagNumber(3)
-  set dateTime($0.Timestamp v) { setField(3, v); }
+  set audioType($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasDateTime() => $_has(2);
+  $core.bool hasAudioType() => $_has(2);
   @$pb.TagNumber(3)
-  void clearDateTime() => clearField(3);
-  @$pb.TagNumber(3)
-  $0.Timestamp ensureDateTime() => $_ensure(2);
+  void clearAudioType() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.int get system => $_getIZ(3);
+  $0.Timestamp get dateTime => $_getN(3);
   @$pb.TagNumber(4)
-  set system($core.int v) { $_setSignedInt32(3, v); }
+  set dateTime($0.Timestamp v) { setField(4, v); }
   @$pb.TagNumber(4)
-  $core.bool hasSystem() => $_has(3);
+  $core.bool hasDateTime() => $_has(3);
   @$pb.TagNumber(4)
-  void clearSystem() => clearField(4);
+  void clearDateTime() => clearField(4);
+  @$pb.TagNumber(4)
+  $0.Timestamp ensureDateTime() => $_ensure(3);
 
   @$pb.TagNumber(5)
-  $core.int get talkgroup => $_getIZ(4);
+  $core.int get system => $_getIZ(4);
   @$pb.TagNumber(5)
-  set talkgroup($core.int v) { $_setSignedInt32(4, v); }
+  set system($core.int v) { $_setSignedInt32(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasTalkgroup() => $_has(4);
+  $core.bool hasSystem() => $_has(4);
   @$pb.TagNumber(5)
-  void clearTalkgroup() => clearField(5);
+  void clearSystem() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.int get source => $_getIZ(5);
+  $core.int get talkgroup => $_getIZ(5);
   @$pb.TagNumber(6)
-  set source($core.int v) { $_setSignedInt32(5, v); }
+  set talkgroup($core.int v) { $_setSignedInt32(5, v); }
   @$pb.TagNumber(6)
-  $core.bool hasSource() => $_has(5);
+  $core.bool hasTalkgroup() => $_has(5);
   @$pb.TagNumber(6)
-  void clearSource() => clearField(6);
+  void clearTalkgroup() => clearField(6);
 
   @$pb.TagNumber(7)
-  $fixnum.Int64 get frequency => $_getI64(6);
+  $core.int get source => $_getIZ(6);
   @$pb.TagNumber(7)
-  set frequency($fixnum.Int64 v) { $_setInt64(6, v); }
+  set source($core.int v) { $_setSignedInt32(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasFrequency() => $_has(6);
+  $core.bool hasSource() => $_has(6);
   @$pb.TagNumber(7)
-  void clearFrequency() => clearField(7);
+  void clearSource() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.List<$fixnum.Int64> get frequencies => $_getList(7);
+  $fixnum.Int64 get frequency => $_getI64(7);
+  @$pb.TagNumber(8)
+  set frequency($fixnum.Int64 v) { $_setInt64(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasFrequency() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearFrequency() => clearField(8);
 
   @$pb.TagNumber(9)
-  $core.List<$core.int> get patches => $_getList(8);
+  $core.List<$fixnum.Int64> get frequencies => $_getList(8);
 
   @$pb.TagNumber(10)
-  $core.List<$core.int> get sources => $_getList(9);
+  $core.List<$core.int> get patches => $_getList(9);
 
   @$pb.TagNumber(11)
-  $core.int get duration => $_getIZ(10);
-  @$pb.TagNumber(11)
-  set duration($core.int v) { $_setSignedInt32(10, v); }
-  @$pb.TagNumber(11)
-  $core.bool hasDuration() => $_has(10);
-  @$pb.TagNumber(11)
-  void clearDuration() => clearField(11);
+  $core.List<$core.int> get sources => $_getList(10);
 
   @$pb.TagNumber(12)
-  $core.List<$core.int> get audio => $_getN(11);
+  $core.int get duration => $_getIZ(11);
   @$pb.TagNumber(12)
-  set audio($core.List<$core.int> v) { $_setBytes(11, v); }
+  set duration($core.int v) { $_setSignedInt32(11, v); }
   @$pb.TagNumber(12)
-  $core.bool hasAudio() => $_has(11);
+  $core.bool hasDuration() => $_has(11);
   @$pb.TagNumber(12)
-  void clearAudio() => clearField(12);
+  void clearDuration() => clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.List<$core.int> get audio => $_getN(12);
+  @$pb.TagNumber(13)
+  set audio($core.List<$core.int> v) { $_setBytes(12, v); }
+  @$pb.TagNumber(13)
+  $core.bool hasAudio() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearAudio() => clearField(13);
 }
 
 class Hello extends $pb.GeneratedMessage {
   factory Hello({
-    Version? version,
+    ServerInfo? serverInfo,
   }) {
     final $result = create();
-    if (version != null) {
-      $result.version = version;
+    if (serverInfo != null) {
+      $result.serverInfo = serverInfo;
     }
     return $result;
   }
@@ -457,7 +471,7 @@ class Hello extends $pb.GeneratedMessage {
   factory Hello.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Hello', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
-    ..aOM<Version>(1, _omitFieldNames ? '' : 'version', subBuilder: Version.create)
+    ..aOM<ServerInfo>(1, _omitFieldNames ? '' : 'serverInfo', subBuilder: ServerInfo.create)
     ..hasRequiredFields = false
   ;
 
@@ -483,15 +497,15 @@ class Hello extends $pb.GeneratedMessage {
   static Hello? _defaultInstance;
 
   @$pb.TagNumber(1)
-  Version get version => $_getN(0);
+  ServerInfo get serverInfo => $_getN(0);
   @$pb.TagNumber(1)
-  set version(Version v) { setField(1, v); }
+  set serverInfo(ServerInfo v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasVersion() => $_has(0);
+  $core.bool hasServerInfo() => $_has(0);
   @$pb.TagNumber(1)
-  void clearVersion() => clearField(1);
+  void clearServerInfo() => clearField(1);
   @$pb.TagNumber(1)
-  Version ensureVersion() => $_ensure(0);
+  ServerInfo ensureServerInfo() => $_ensure(0);
 }
 
 class UserPopup extends $pb.GeneratedMessage {
@@ -1203,12 +1217,13 @@ class Search extends $pb.GeneratedMessage {
   static Search? _defaultInstance;
 }
 
-class Version extends $pb.GeneratedMessage {
-  factory Version({
+class ServerInfo extends $pb.GeneratedMessage {
+  factory ServerInfo({
     $core.String? serverName,
     $core.String? version,
     $core.String? built,
     $core.String? platform,
+    $core.String? dbSize,
   }) {
     final $result = create();
     if (serverName != null) {
@@ -1223,17 +1238,21 @@ class Version extends $pb.GeneratedMessage {
     if (platform != null) {
       $result.platform = platform;
     }
+    if (dbSize != null) {
+      $result.dbSize = dbSize;
+    }
     return $result;
   }
-  Version._() : super();
-  factory Version.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Version.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  ServerInfo._() : super();
+  factory ServerInfo.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ServerInfo.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Version', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ServerInfo', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'serverName')
     ..aOS(2, _omitFieldNames ? '' : 'version')
     ..aOS(3, _omitFieldNames ? '' : 'built')
     ..aOS(4, _omitFieldNames ? '' : 'platform')
+    ..aOS(5, _omitFieldNames ? '' : 'dbSize')
     ..hasRequiredFields = false
   ;
 
@@ -1241,22 +1260,22 @@ class Version extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  Version clone() => Version()..mergeFromMessage(this);
+  ServerInfo clone() => ServerInfo()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Version copyWith(void Function(Version) updates) => super.copyWith((message) => updates(message as Version)) as Version;
+  ServerInfo copyWith(void Function(ServerInfo) updates) => super.copyWith((message) => updates(message as ServerInfo)) as ServerInfo;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static Version create() => Version._();
-  Version createEmptyInstance() => create();
-  static $pb.PbList<Version> createRepeated() => $pb.PbList<Version>();
+  static ServerInfo create() => ServerInfo._();
+  ServerInfo createEmptyInstance() => create();
+  static $pb.PbList<ServerInfo> createRepeated() => $pb.PbList<ServerInfo>();
   @$core.pragma('dart2js:noInline')
-  static Version getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Version>(create);
-  static Version? _defaultInstance;
+  static ServerInfo getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ServerInfo>(create);
+  static ServerInfo? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get serverName => $_getSZ(0);
@@ -1293,6 +1312,15 @@ class Version extends $pb.GeneratedMessage {
   $core.bool hasPlatform() => $_has(3);
   @$pb.TagNumber(4)
   void clearPlatform() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get dbSize => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set dbSize($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasDbSize() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearDbSize() => clearField(5);
 }
 
 

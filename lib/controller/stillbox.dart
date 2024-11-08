@@ -50,7 +50,7 @@ class Stillbox extends ChangeNotifier {
       String socketUrl;
       final port = (baseUri!.hasPort ? ':${baseUri!.port}' : '');
       socketUrl =
-          '${baseUri!.scheme == 'http' ? 'ws' : 'wss'}://${baseUri!.host}$port/ws';
+          '${baseUri!.scheme == 'http' ? 'ws' : 'wss'}://${baseUri!.host}$port/api/ws';
       _wsUri = Uri.parse(socketUrl);
     } else {
       baseUri = null;
@@ -65,7 +65,7 @@ class Stillbox extends ChangeNotifier {
     if (baseUriString.endsWith('/')) {
       baseUriString = baseUriString.substring(0, baseUriString.length - 1);
     }
-    Uri loginUri = Uri.parse('$baseUriString/login');
+    Uri loginUri = Uri.parse('$baseUriString/api/login');
     final form = <String, dynamic>{};
     form['username'] = username;
     form['password'] = password;
