@@ -76,18 +76,19 @@ final $typed_data.Uint8List commandResponseDescriptor = $convert.base64Decode(
 const Call$json = {
   '1': 'Call',
   '2': [
-    {'1': 'audioName', '3': 1, '4': 1, '5': 9, '10': 'audioName'},
-    {'1': 'audioType', '3': 2, '4': 1, '5': 9, '10': 'audioType'},
-    {'1': 'date_time', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'dateTime'},
-    {'1': 'system', '3': 4, '4': 1, '5': 5, '10': 'system'},
-    {'1': 'talkgroup', '3': 5, '4': 1, '5': 5, '10': 'talkgroup'},
-    {'1': 'source', '3': 6, '4': 1, '5': 5, '10': 'source'},
-    {'1': 'frequency', '3': 7, '4': 1, '5': 3, '10': 'frequency'},
-    {'1': 'frequencies', '3': 8, '4': 3, '5': 3, '10': 'frequencies'},
-    {'1': 'patches', '3': 9, '4': 3, '5': 5, '10': 'patches'},
-    {'1': 'sources', '3': 10, '4': 3, '5': 5, '10': 'sources'},
-    {'1': 'duration', '3': 11, '4': 1, '5': 5, '9': 0, '10': 'duration', '17': true},
-    {'1': 'audio', '3': 12, '4': 1, '5': 12, '10': 'audio'},
+    {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    {'1': 'audioName', '3': 2, '4': 1, '5': 9, '10': 'audioName'},
+    {'1': 'audioType', '3': 3, '4': 1, '5': 9, '10': 'audioType'},
+    {'1': 'date_time', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'dateTime'},
+    {'1': 'system', '3': 5, '4': 1, '5': 5, '10': 'system'},
+    {'1': 'talkgroup', '3': 6, '4': 1, '5': 5, '10': 'talkgroup'},
+    {'1': 'source', '3': 7, '4': 1, '5': 5, '10': 'source'},
+    {'1': 'frequency', '3': 8, '4': 1, '5': 3, '10': 'frequency'},
+    {'1': 'frequencies', '3': 9, '4': 3, '5': 3, '10': 'frequencies'},
+    {'1': 'patches', '3': 10, '4': 3, '5': 5, '10': 'patches'},
+    {'1': 'sources', '3': 11, '4': 3, '5': 5, '10': 'sources'},
+    {'1': 'duration', '3': 12, '4': 1, '5': 5, '9': 0, '10': 'duration', '17': true},
+    {'1': 'audio', '3': 13, '4': 1, '5': 12, '10': 'audio'},
   ],
   '8': [
     {'1': '_duration'},
@@ -96,25 +97,27 @@ const Call$json = {
 
 /// Descriptor for `Call`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List callDescriptor = $convert.base64Decode(
-    'CgRDYWxsEhwKCWF1ZGlvTmFtZRgBIAEoCVIJYXVkaW9OYW1lEhwKCWF1ZGlvVHlwZRgCIAEoCV'
-    'IJYXVkaW9UeXBlEjcKCWRhdGVfdGltZRgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3Rh'
-    'bXBSCGRhdGVUaW1lEhYKBnN5c3RlbRgEIAEoBVIGc3lzdGVtEhwKCXRhbGtncm91cBgFIAEoBV'
-    'IJdGFsa2dyb3VwEhYKBnNvdXJjZRgGIAEoBVIGc291cmNlEhwKCWZyZXF1ZW5jeRgHIAEoA1IJ'
-    'ZnJlcXVlbmN5EiAKC2ZyZXF1ZW5jaWVzGAggAygDUgtmcmVxdWVuY2llcxIYCgdwYXRjaGVzGA'
-    'kgAygFUgdwYXRjaGVzEhgKB3NvdXJjZXMYCiADKAVSB3NvdXJjZXMSHwoIZHVyYXRpb24YCyAB'
-    'KAVIAFIIZHVyYXRpb26IAQESFAoFYXVkaW8YDCABKAxSBWF1ZGlvQgsKCV9kdXJhdGlvbg==');
+    'CgRDYWxsEg4KAmlkGAEgASgJUgJpZBIcCglhdWRpb05hbWUYAiABKAlSCWF1ZGlvTmFtZRIcCg'
+    'lhdWRpb1R5cGUYAyABKAlSCWF1ZGlvVHlwZRI3CglkYXRlX3RpbWUYBCABKAsyGi5nb29nbGUu'
+    'cHJvdG9idWYuVGltZXN0YW1wUghkYXRlVGltZRIWCgZzeXN0ZW0YBSABKAVSBnN5c3RlbRIcCg'
+    'l0YWxrZ3JvdXAYBiABKAVSCXRhbGtncm91cBIWCgZzb3VyY2UYByABKAVSBnNvdXJjZRIcCglm'
+    'cmVxdWVuY3kYCCABKANSCWZyZXF1ZW5jeRIgCgtmcmVxdWVuY2llcxgJIAMoA1ILZnJlcXVlbm'
+    'NpZXMSGAoHcGF0Y2hlcxgKIAMoBVIHcGF0Y2hlcxIYCgdzb3VyY2VzGAsgAygFUgdzb3VyY2Vz'
+    'Eh8KCGR1cmF0aW9uGAwgASgFSABSCGR1cmF0aW9uiAEBEhQKBWF1ZGlvGA0gASgMUgVhdWRpb0'
+    'ILCglfZHVyYXRpb24=');
 
 @$core.Deprecated('Use helloDescriptor instead')
 const Hello$json = {
   '1': 'Hello',
   '2': [
-    {'1': 'version', '3': 1, '4': 1, '5': 11, '6': '.stillbox.Version', '10': 'version'},
+    {'1': 'server_info', '3': 1, '4': 1, '5': 11, '6': '.stillbox.ServerInfo', '10': 'serverInfo'},
   ],
 };
 
 /// Descriptor for `Hello`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List helloDescriptor = $convert.base64Decode(
-    'CgVIZWxsbxIrCgd2ZXJzaW9uGAEgASgLMhEuc3RpbGxib3guVmVyc2lvblIHdmVyc2lvbg==');
+    'CgVIZWxsbxI1CgtzZXJ2ZXJfaW5mbxgBIAEoCzIULnN0aWxsYm94LlNlcnZlckluZm9SCnNlcn'
+    'ZlckluZm8=');
 
 @$core.Deprecated('Use userPopupDescriptor instead')
 const UserPopup$json = {
@@ -276,20 +279,21 @@ const Search$json = {
 final $typed_data.Uint8List searchDescriptor = $convert.base64Decode(
     'CgZTZWFyY2g=');
 
-@$core.Deprecated('Use versionDescriptor instead')
-const Version$json = {
-  '1': 'Version',
+@$core.Deprecated('Use serverInfoDescriptor instead')
+const ServerInfo$json = {
+  '1': 'ServerInfo',
   '2': [
     {'1': 'server_name', '3': 1, '4': 1, '5': 9, '10': 'serverName'},
     {'1': 'version', '3': 2, '4': 1, '5': 9, '10': 'version'},
     {'1': 'built', '3': 3, '4': 1, '5': 9, '10': 'built'},
     {'1': 'platform', '3': 4, '4': 1, '5': 9, '10': 'platform'},
+    {'1': 'db_size', '3': 5, '4': 1, '5': 9, '10': 'dbSize'},
   ],
 };
 
-/// Descriptor for `Version`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List versionDescriptor = $convert.base64Decode(
-    'CgdWZXJzaW9uEh8KC3NlcnZlcl9uYW1lGAEgASgJUgpzZXJ2ZXJOYW1lEhgKB3ZlcnNpb24YAi'
-    'ABKAlSB3ZlcnNpb24SFAoFYnVpbHQYAyABKAlSBWJ1aWx0EhoKCHBsYXRmb3JtGAQgASgJUghw'
-    'bGF0Zm9ybQ==');
+/// Descriptor for `ServerInfo`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List serverInfoDescriptor = $convert.base64Decode(
+    'CgpTZXJ2ZXJJbmZvEh8KC3NlcnZlcl9uYW1lGAEgASgJUgpzZXJ2ZXJOYW1lEhgKB3ZlcnNpb2'
+    '4YAiABKAlSB3ZlcnNpb24SFAoFYnVpbHQYAyABKAlSBWJ1aWx0EhoKCHBsYXRmb3JtGAQgASgJ'
+    'UghwbGF0Zm9ybRIXCgdkYl9zaXplGAUgASgJUgZkYlNpemU=');
 

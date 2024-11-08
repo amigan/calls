@@ -159,7 +159,7 @@ class ScannerLabel extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.all(20.0),
                   child: Text(
-                    'Server info:\n${version.serverName} ${version.version}\nbuilt ${version.built}\nrunning on ${version.platform}',
+                    'Server info:\n${version.serverName} ${version.version}\nbuilt ${version.built}\nrunning on ${version.platform}\nDB size ${version.dbSize}',
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
