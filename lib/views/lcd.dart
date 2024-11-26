@@ -52,6 +52,10 @@ class LCD extends StatelessWidget {
     return FutureBuilder(
         future: _call?.tg,
         builder: (BuildContext context, AsyncSnapshot<TalkgroupInfo> tgi) {
+          String mainLine = '';
+          String secondLine = '';
+          mainLine = '${tgi.data?.alphaTag ?? tgi.data?.name ?? (_call?.call.talkgroup ?? '')}${tgi.data?.learned ?? false ? ' 📓' : ''}';
+          secondLine = '${tgi.data?.group ?? ''} ${tgi.data?.alphaTag != null ? (tgi.data?.name ?? '') : ''}';
           return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -75,7 +79,7 @@ class LCD extends StatelessWidget {
                                   maxWidth:
                                       MediaQuery.sizeOf(context).width / 1.6),
                               child: Text(
-                                  '${tgi.data?.name ?? (_call?.call.talkgroup ?? '')}${tgi.data?.learned ?? false ? ' 📓' : ''}',
+                                  mainLine,
                                   style: const TextStyle(
                                     fontSize: 20.0,
                                     overflow: TextOverflow.ellipsis,
@@ -89,7 +93,7 @@ class LCD extends StatelessWidget {
                                 )),
                           ],
                         ),
-                        Text(tgi.data != null ? tgi.data!.group : ''),
+                        Text(secondLine),
                       ])
                 ]),
                 Row(
