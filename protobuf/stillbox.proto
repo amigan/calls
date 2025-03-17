@@ -113,3 +113,9 @@ message ServerInfo {
   string platform = 4;
   string db_size = 5;
 }
+
+message CallTranscribeRequest {
+	Call call = 1;
+	string callback = 2;
+	string token = 3;
+}
