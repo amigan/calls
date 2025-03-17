@@ -43,6 +43,7 @@ class _MainRadioState extends State<MainRadio> {
     super.initState();
     _setupAudioSession();
     final sb = Provider.of<Stillbox>(context, listen: false);
+    player.player.stop();
 
     player.player.playerStateStream.listen((event) async {
       if (event.processingState == ProcessingState.completed &&
@@ -82,7 +83,10 @@ class _MainRadioState extends State<MainRadio> {
   void _callLoop(Stillbox sb) async {
     var streamWithoutErrors =
         sb.callStream.stream.handleError((error) => _handleSocketError(error));
-    await for (final call in streamWithoutErrors) {
+    streamWithoutErrors.listen((call) async {
+      if (call == null) {
+        return;
+      }
       lcdOn();
       setState(() {
         _call = call;
@@ -92,7 +96,7 @@ class _MainRadioState extends State<MainRadio> {
       player.play(call.call);
       await _completer.future;
       lcdOff();
-    } //);
+    });
   }
 
   void lcdOn() {
@@ -135,7 +139,7 @@ class _MainRadioState extends State<MainRadio> {
                       LED(_ledColor),
                     ]),
                 LCD(_call, _lcdColor, queueLen, timeFormat),
-                const Keypad(),
+                Keypad(player: player),
               ],
             )),
       ),

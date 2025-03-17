@@ -30,11 +30,11 @@ message Call {
   google.protobuf.Timestamp date_time = 4;
   int32 system = 5;
   int32 talkgroup = 6;
-  int32 source = 7;
-  int64 frequency = 8;
-  repeated int64 frequencies = 9;
-  repeated int32 patches = 10;
-  repeated int32 sources = 11;
+  optional string talker_alias = 7;
+  int32 source = 8;
+  int64 frequency = 9;
+  repeated int64 frequencies = 10;
+  repeated int32 patches = 11;
   optional int32 duration = 12;
   bytes audio = 13;
 }

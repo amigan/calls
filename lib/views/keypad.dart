@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../controller/stillbox.dart';
+import 'play.dart';
 
 class Keypad extends StatefulWidget {
-  const Keypad({super.key});
+  final JustAudioDriver player;
+
+  const Keypad({super.key, required this.player});
 
   @override
   State<Keypad> createState() => _KeypadState();
@@ -26,11 +31,14 @@ class _KeypadState extends State<Keypad> {
   Widget build(BuildContext context) {
     return Container(
         margin: const EdgeInsets.all(16.0),
-        child: const Column(children: [
+        child: Column(children: [
           Row(children: [
-            Text(
-              "test",
-            )
+            ElevatedButton(onPressed: () async {
+              widget.player.player.stop();
+              Provider.of<Stillbox>(context, listen: false).flushQueue();
+            },
+            child: const Text('Login'),
+            ),
           ]),
           Row(),
           Row(),
