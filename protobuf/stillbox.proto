@@ -9,10 +9,11 @@ message Message {
   oneof toClient_message {
     CommandResponse response = 1;
     Call call = 2;
-    Notification notification = 3;
-    UserPopup popup = 4;
-    Error error = 5;
-    Hello hello = 6;
+    CallTranscription transcription = 3;
+    Notification notification = 4;
+    UserPopup popup = 5;
+    Error error = 6;
+    Hello hello = 7;
   }
 }
 
@@ -37,6 +38,14 @@ message Call {
   repeated int32 patches = 11;
   optional int32 duration = 12;
   bytes audio = 13;
+}
+
+message CallTranscription {
+  string id = 1;
+  int32 system = 2;
+  int32 talkgroup = 3;
+  repeated int32 patches = 4;
+  string transcript = 5;
 }
 
 message Hello {
@@ -88,6 +97,8 @@ enum LiveState {
 message Live {
   optional LiveState state = 1;
   optional Filter filter = 2;
+  bool calls = 3;
+  bool transcripts = 4;
 }
 
 message Talkgroup {

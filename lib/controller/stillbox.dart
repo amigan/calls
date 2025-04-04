@@ -29,7 +29,10 @@ class Stillbox extends ChangeNotifier {
   final StreamController<int> callQStream = StreamController<int>();
 
   set state(LiveState newState) {
-    channel.sink.add(Live(state: newState, filter: currentFilter));
+    channel.sink.add(Command(
+            liveCommand:
+                Live(state: newState, filter: currentFilter, calls: true))
+        .writeToBuffer());
     _state = newState;
     notifyListeners();
   }
@@ -153,6 +156,7 @@ class Stillbox extends ChangeNotifier {
       case Message_ToClientMessage.error:
       case Message_ToClientMessage.hello:
         version = msg.hello.serverInfo;
+        state = LiveState.LS_LIVE;
       case Message_ToClientMessage.response:
         _handleCommandResponse(msg.response);
       default:

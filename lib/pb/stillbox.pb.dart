@@ -23,6 +23,7 @@ export 'stillbox.pbenum.dart';
 enum Message_ToClientMessage {
   response, 
   call, 
+  transcription, 
   notification, 
   popup, 
   error, 
@@ -34,6 +35,7 @@ class Message extends $pb.GeneratedMessage {
   factory Message({
     CommandResponse? response,
     Call? call,
+    CallTranscription? transcription,
     Notification? notification,
     UserPopup? popup,
     Error? error,
@@ -45,6 +47,9 @@ class Message extends $pb.GeneratedMessage {
     }
     if (call != null) {
       $result.call = call;
+    }
+    if (transcription != null) {
+      $result.transcription = transcription;
     }
     if (notification != null) {
       $result.notification = notification;
@@ -67,20 +72,22 @@ class Message extends $pb.GeneratedMessage {
   static const $core.Map<$core.int, Message_ToClientMessage> _Message_ToClientMessageByTag = {
     1 : Message_ToClientMessage.response,
     2 : Message_ToClientMessage.call,
-    3 : Message_ToClientMessage.notification,
-    4 : Message_ToClientMessage.popup,
-    5 : Message_ToClientMessage.error,
-    6 : Message_ToClientMessage.hello,
+    3 : Message_ToClientMessage.transcription,
+    4 : Message_ToClientMessage.notification,
+    5 : Message_ToClientMessage.popup,
+    6 : Message_ToClientMessage.error,
+    7 : Message_ToClientMessage.hello,
     0 : Message_ToClientMessage.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Message', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
-    ..oo(0, [1, 2, 3, 4, 5, 6])
+    ..oo(0, [1, 2, 3, 4, 5, 6, 7])
     ..aOM<CommandResponse>(1, _omitFieldNames ? '' : 'response', subBuilder: CommandResponse.create)
     ..aOM<Call>(2, _omitFieldNames ? '' : 'call', subBuilder: Call.create)
-    ..aOM<Notification>(3, _omitFieldNames ? '' : 'notification', subBuilder: Notification.create)
-    ..aOM<UserPopup>(4, _omitFieldNames ? '' : 'popup', subBuilder: UserPopup.create)
-    ..aOM<Error>(5, _omitFieldNames ? '' : 'error', subBuilder: Error.create)
-    ..aOM<Hello>(6, _omitFieldNames ? '' : 'hello', subBuilder: Hello.create)
+    ..aOM<CallTranscription>(3, _omitFieldNames ? '' : 'transcription', subBuilder: CallTranscription.create)
+    ..aOM<Notification>(4, _omitFieldNames ? '' : 'notification', subBuilder: Notification.create)
+    ..aOM<UserPopup>(5, _omitFieldNames ? '' : 'popup', subBuilder: UserPopup.create)
+    ..aOM<Error>(6, _omitFieldNames ? '' : 'error', subBuilder: Error.create)
+    ..aOM<Hello>(7, _omitFieldNames ? '' : 'hello', subBuilder: Hello.create)
     ..hasRequiredFields = false
   ;
 
@@ -131,48 +138,59 @@ class Message extends $pb.GeneratedMessage {
   Call ensureCall() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  Notification get notification => $_getN(2);
+  CallTranscription get transcription => $_getN(2);
   @$pb.TagNumber(3)
-  set notification(Notification v) { setField(3, v); }
+  set transcription(CallTranscription v) { setField(3, v); }
   @$pb.TagNumber(3)
-  $core.bool hasNotification() => $_has(2);
+  $core.bool hasTranscription() => $_has(2);
   @$pb.TagNumber(3)
-  void clearNotification() => clearField(3);
+  void clearTranscription() => clearField(3);
   @$pb.TagNumber(3)
-  Notification ensureNotification() => $_ensure(2);
+  CallTranscription ensureTranscription() => $_ensure(2);
 
   @$pb.TagNumber(4)
-  UserPopup get popup => $_getN(3);
+  Notification get notification => $_getN(3);
   @$pb.TagNumber(4)
-  set popup(UserPopup v) { setField(4, v); }
+  set notification(Notification v) { setField(4, v); }
   @$pb.TagNumber(4)
-  $core.bool hasPopup() => $_has(3);
+  $core.bool hasNotification() => $_has(3);
   @$pb.TagNumber(4)
-  void clearPopup() => clearField(4);
+  void clearNotification() => clearField(4);
   @$pb.TagNumber(4)
-  UserPopup ensurePopup() => $_ensure(3);
+  Notification ensureNotification() => $_ensure(3);
 
   @$pb.TagNumber(5)
-  Error get error => $_getN(4);
+  UserPopup get popup => $_getN(4);
   @$pb.TagNumber(5)
-  set error(Error v) { setField(5, v); }
+  set popup(UserPopup v) { setField(5, v); }
   @$pb.TagNumber(5)
-  $core.bool hasError() => $_has(4);
+  $core.bool hasPopup() => $_has(4);
   @$pb.TagNumber(5)
-  void clearError() => clearField(5);
+  void clearPopup() => clearField(5);
   @$pb.TagNumber(5)
-  Error ensureError() => $_ensure(4);
+  UserPopup ensurePopup() => $_ensure(4);
 
   @$pb.TagNumber(6)
-  Hello get hello => $_getN(5);
+  Error get error => $_getN(5);
   @$pb.TagNumber(6)
-  set hello(Hello v) { setField(6, v); }
+  set error(Error v) { setField(6, v); }
   @$pb.TagNumber(6)
-  $core.bool hasHello() => $_has(5);
+  $core.bool hasError() => $_has(5);
   @$pb.TagNumber(6)
-  void clearHello() => clearField(6);
+  void clearError() => clearField(6);
   @$pb.TagNumber(6)
-  Hello ensureHello() => $_ensure(5);
+  Error ensureError() => $_ensure(5);
+
+  @$pb.TagNumber(7)
+  Hello get hello => $_getN(6);
+  @$pb.TagNumber(7)
+  set hello(Hello v) { setField(7, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasHello() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearHello() => clearField(7);
+  @$pb.TagNumber(7)
+  Hello ensureHello() => $_ensure(6);
 }
 
 enum CommandResponse_CommandResponse {
@@ -262,11 +280,11 @@ class Call extends $pb.GeneratedMessage {
     $0.Timestamp? dateTime,
     $core.int? system,
     $core.int? talkgroup,
+    $core.String? talkerAlias,
     $core.int? source,
     $fixnum.Int64? frequency,
     $core.Iterable<$fixnum.Int64>? frequencies,
     $core.Iterable<$core.int>? patches,
-    $core.Iterable<$core.int>? sources,
     $core.int? duration,
     $core.List<$core.int>? audio,
   }) {
@@ -289,6 +307,9 @@ class Call extends $pb.GeneratedMessage {
     if (talkgroup != null) {
       $result.talkgroup = talkgroup;
     }
+    if (talkerAlias != null) {
+      $result.talkerAlias = talkerAlias;
+    }
     if (source != null) {
       $result.source = source;
     }
@@ -300,9 +321,6 @@ class Call extends $pb.GeneratedMessage {
     }
     if (patches != null) {
       $result.patches.addAll(patches);
-    }
-    if (sources != null) {
-      $result.sources.addAll(sources);
     }
     if (duration != null) {
       $result.duration = duration;
@@ -323,11 +341,11 @@ class Call extends $pb.GeneratedMessage {
     ..aOM<$0.Timestamp>(4, _omitFieldNames ? '' : 'dateTime', subBuilder: $0.Timestamp.create)
     ..a<$core.int>(5, _omitFieldNames ? '' : 'system', $pb.PbFieldType.O3)
     ..a<$core.int>(6, _omitFieldNames ? '' : 'talkgroup', $pb.PbFieldType.O3)
-    ..a<$core.int>(7, _omitFieldNames ? '' : 'source', $pb.PbFieldType.O3)
-    ..aInt64(8, _omitFieldNames ? '' : 'frequency')
-    ..p<$fixnum.Int64>(9, _omitFieldNames ? '' : 'frequencies', $pb.PbFieldType.K6)
-    ..p<$core.int>(10, _omitFieldNames ? '' : 'patches', $pb.PbFieldType.K3)
-    ..p<$core.int>(11, _omitFieldNames ? '' : 'sources', $pb.PbFieldType.K3)
+    ..aOS(7, _omitFieldNames ? '' : 'talkerAlias')
+    ..a<$core.int>(8, _omitFieldNames ? '' : 'source', $pb.PbFieldType.O3)
+    ..aInt64(9, _omitFieldNames ? '' : 'frequency')
+    ..p<$fixnum.Int64>(10, _omitFieldNames ? '' : 'frequencies', $pb.PbFieldType.K6)
+    ..p<$core.int>(11, _omitFieldNames ? '' : 'patches', $pb.PbFieldType.K3)
     ..a<$core.int>(12, _omitFieldNames ? '' : 'duration', $pb.PbFieldType.O3)
     ..a<$core.List<$core.int>>(13, _omitFieldNames ? '' : 'audio', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
@@ -411,31 +429,37 @@ class Call extends $pb.GeneratedMessage {
   void clearTalkgroup() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.int get source => $_getIZ(6);
+  $core.String get talkerAlias => $_getSZ(6);
   @$pb.TagNumber(7)
-  set source($core.int v) { $_setSignedInt32(6, v); }
+  set talkerAlias($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasSource() => $_has(6);
+  $core.bool hasTalkerAlias() => $_has(6);
   @$pb.TagNumber(7)
-  void clearSource() => clearField(7);
+  void clearTalkerAlias() => clearField(7);
 
   @$pb.TagNumber(8)
-  $fixnum.Int64 get frequency => $_getI64(7);
+  $core.int get source => $_getIZ(7);
   @$pb.TagNumber(8)
-  set frequency($fixnum.Int64 v) { $_setInt64(7, v); }
+  set source($core.int v) { $_setSignedInt32(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasFrequency() => $_has(7);
+  $core.bool hasSource() => $_has(7);
   @$pb.TagNumber(8)
-  void clearFrequency() => clearField(8);
+  void clearSource() => clearField(8);
 
   @$pb.TagNumber(9)
-  $core.List<$fixnum.Int64> get frequencies => $_getList(8);
+  $fixnum.Int64 get frequency => $_getI64(8);
+  @$pb.TagNumber(9)
+  set frequency($fixnum.Int64 v) { $_setInt64(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasFrequency() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearFrequency() => clearField(9);
 
   @$pb.TagNumber(10)
-  $core.List<$core.int> get patches => $_getList(9);
+  $core.List<$fixnum.Int64> get frequencies => $_getList(9);
 
   @$pb.TagNumber(11)
-  $core.List<$core.int> get sources => $_getList(10);
+  $core.List<$core.int> get patches => $_getList(10);
 
   @$pb.TagNumber(12)
   $core.int get duration => $_getIZ(11);
@@ -454,6 +478,106 @@ class Call extends $pb.GeneratedMessage {
   $core.bool hasAudio() => $_has(12);
   @$pb.TagNumber(13)
   void clearAudio() => clearField(13);
+}
+
+class CallTranscription extends $pb.GeneratedMessage {
+  factory CallTranscription({
+    $core.String? id,
+    $core.int? system,
+    $core.int? talkgroup,
+    $core.Iterable<$core.int>? patches,
+    $core.String? transcript,
+  }) {
+    final $result = create();
+    if (id != null) {
+      $result.id = id;
+    }
+    if (system != null) {
+      $result.system = system;
+    }
+    if (talkgroup != null) {
+      $result.talkgroup = talkgroup;
+    }
+    if (patches != null) {
+      $result.patches.addAll(patches);
+    }
+    if (transcript != null) {
+      $result.transcript = transcript;
+    }
+    return $result;
+  }
+  CallTranscription._() : super();
+  factory CallTranscription.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CallTranscription.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CallTranscription', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'id')
+    ..a<$core.int>(2, _omitFieldNames ? '' : 'system', $pb.PbFieldType.O3)
+    ..a<$core.int>(3, _omitFieldNames ? '' : 'talkgroup', $pb.PbFieldType.O3)
+    ..p<$core.int>(4, _omitFieldNames ? '' : 'patches', $pb.PbFieldType.K3)
+    ..aOS(5, _omitFieldNames ? '' : 'transcript')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CallTranscription clone() => CallTranscription()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CallTranscription copyWith(void Function(CallTranscription) updates) => super.copyWith((message) => updates(message as CallTranscription)) as CallTranscription;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static CallTranscription create() => CallTranscription._();
+  CallTranscription createEmptyInstance() => create();
+  static $pb.PbList<CallTranscription> createRepeated() => $pb.PbList<CallTranscription>();
+  @$core.pragma('dart2js:noInline')
+  static CallTranscription getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CallTranscription>(create);
+  static CallTranscription? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get system => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set system($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasSystem() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSystem() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get talkgroup => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set talkgroup($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasTalkgroup() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTalkgroup() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.int> get patches => $_getList(3);
+
+  @$pb.TagNumber(5)
+  $core.String get transcript => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set transcript($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasTranscript() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearTranscript() => clearField(5);
 }
 
 class Hello extends $pb.GeneratedMessage {
@@ -983,6 +1107,8 @@ class Live extends $pb.GeneratedMessage {
   factory Live({
     LiveState? state,
     Filter? filter,
+    $core.bool? calls,
+    $core.bool? transcripts,
   }) {
     final $result = create();
     if (state != null) {
@@ -990,6 +1116,12 @@ class Live extends $pb.GeneratedMessage {
     }
     if (filter != null) {
       $result.filter = filter;
+    }
+    if (calls != null) {
+      $result.calls = calls;
+    }
+    if (transcripts != null) {
+      $result.transcripts = transcripts;
     }
     return $result;
   }
@@ -1000,6 +1132,8 @@ class Live extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Live', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
     ..e<LiveState>(1, _omitFieldNames ? '' : 'state', $pb.PbFieldType.OE, defaultOrMaker: LiveState.LS_STOPPED, valueOf: LiveState.valueOf, enumValues: LiveState.values)
     ..aOM<Filter>(2, _omitFieldNames ? '' : 'filter', subBuilder: Filter.create)
+    ..aOB(3, _omitFieldNames ? '' : 'calls')
+    ..aOB(4, _omitFieldNames ? '' : 'transcripts')
     ..hasRequiredFields = false
   ;
 
@@ -1043,6 +1177,24 @@ class Live extends $pb.GeneratedMessage {
   void clearFilter() => clearField(2);
   @$pb.TagNumber(2)
   Filter ensureFilter() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  $core.bool get calls => $_getBF(2);
+  @$pb.TagNumber(3)
+  set calls($core.bool v) { $_setBool(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasCalls() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearCalls() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.bool get transcripts => $_getBF(3);
+  @$pb.TagNumber(4)
+  set transcripts($core.bool v) { $_setBool(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasTranscripts() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearTranscripts() => clearField(4);
 }
 
 class Talkgroup extends $pb.GeneratedMessage {
@@ -1321,6 +1473,86 @@ class ServerInfo extends $pb.GeneratedMessage {
   $core.bool hasDbSize() => $_has(4);
   @$pb.TagNumber(5)
   void clearDbSize() => clearField(5);
+}
+
+class CallTranscribeRequest extends $pb.GeneratedMessage {
+  factory CallTranscribeRequest({
+    Call? call,
+    $core.String? callback,
+    $core.String? token,
+  }) {
+    final $result = create();
+    if (call != null) {
+      $result.call = call;
+    }
+    if (callback != null) {
+      $result.callback = callback;
+    }
+    if (token != null) {
+      $result.token = token;
+    }
+    return $result;
+  }
+  CallTranscribeRequest._() : super();
+  factory CallTranscribeRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CallTranscribeRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CallTranscribeRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'stillbox'), createEmptyInstance: create)
+    ..aOM<Call>(1, _omitFieldNames ? '' : 'call', subBuilder: Call.create)
+    ..aOS(2, _omitFieldNames ? '' : 'callback')
+    ..aOS(3, _omitFieldNames ? '' : 'token')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CallTranscribeRequest clone() => CallTranscribeRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CallTranscribeRequest copyWith(void Function(CallTranscribeRequest) updates) => super.copyWith((message) => updates(message as CallTranscribeRequest)) as CallTranscribeRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static CallTranscribeRequest create() => CallTranscribeRequest._();
+  CallTranscribeRequest createEmptyInstance() => create();
+  static $pb.PbList<CallTranscribeRequest> createRepeated() => $pb.PbList<CallTranscribeRequest>();
+  @$core.pragma('dart2js:noInline')
+  static CallTranscribeRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CallTranscribeRequest>(create);
+  static CallTranscribeRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Call get call => $_getN(0);
+  @$pb.TagNumber(1)
+  set call(Call v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasCall() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearCall() => clearField(1);
+  @$pb.TagNumber(1)
+  Call ensureCall() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $core.String get callback => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set callback($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasCallback() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearCallback() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get token => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set token($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasToken() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearToken() => clearField(3);
 }
 
 
