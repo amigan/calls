@@ -22,6 +22,7 @@ class MainRadio extends StatefulWidget {
 class _MainRadioState extends State<MainRadio> {
   final player = JustAudioDriver();
   bool lcdState = false;
+  bool _queueListened = false;
   static const _lcdTimeout = 3;
   static const _lcdOnColor = Colors.amber;
   static const _lcdOffColor = Color.fromARGB(255, 255, 219, 110);
@@ -55,11 +56,15 @@ class _MainRadioState extends State<MainRadio> {
       }
     });
 
+    if (_queueListened) {
+      return;
+    }
     sb.callQStream.stream.listen((ctAdd) {
       setState(() {
         queueLen += ctAdd;
       });
     });
+    _queueListened = true;
 
     _callLoop(sb);
   }
@@ -83,7 +88,8 @@ class _MainRadioState extends State<MainRadio> {
   void _callLoop(Stillbox sb) async {
     var streamWithoutErrors =
         sb.callStream.stream.handleError((error) => _handleSocketError(error));
-    streamWithoutErrors.listen((call) async {
+    //streamWithoutErrors.listen((call) async {
+    await for (final call in streamWithoutErrors) {
       if (call == null) {
         return;
       }
@@ -96,7 +102,7 @@ class _MainRadioState extends State<MainRadio> {
       player.play(call.call);
       await _completer.future;
       lcdOff();
-    });
+    }
   }
 
   void lcdOn() {
