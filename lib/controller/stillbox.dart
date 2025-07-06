@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -77,10 +78,15 @@ class Stillbox extends ChangeNotifier {
       body: form,
     );
     if (response.statusCode == 200) {
+      final tokResp = jsonDecode(response.body);
+      final accessToken = tokResp['accessToken'];
+      final refreshToken = tokResp['refreshToken'];
       String? token = channel.updateCookie(response);
+
       storage.setKey('baseURL', uri);
       if (!kIsWeb && token != null) {
-        storage.setKey('token', token);
+        storage.setKey('accessToken', accessToken);
+        storage.setKey('refreshToken', refreshToken);
       }
       try {
         await connect();
